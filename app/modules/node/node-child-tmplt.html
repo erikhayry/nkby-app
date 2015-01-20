@@ -7,9 +7,13 @@
 
   <div ng-if="!child.children">
     {{child.name}}
+
     <span class="btn-group pull-right">
       <button type="button" class="btn btn-default" ng-click="open(child)">Open</button>
     </span>
+
+    <html-tool ng-if="html" html="html"/>
+
   </div>
 
 </li>

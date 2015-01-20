@@ -26,17 +26,9 @@ angular
   
   // States
   $stateProvider
-    .state('main', {
+    .state('editor', {
       url: '/',
-      controller: 'MainCtrl',
-      templateUrl: 'views/main/main-view.html'
+      controller: 'EditorCtrl',
+      templateUrl: 'views/editor/editor-view.html'
     })
-
-    .state('about', {
-      url: '/about',
-      controller: 'AboutCtrl',
-      templateUrl: 'views/about/about-view.html'
-    });
-
-
   });

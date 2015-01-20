@@ -8,8 +8,9 @@
  * Controller of the ngScaffoldApp
  */
 
-angular.module('ngScaffoldApp').controller("BoxCtrl", ["$scope",
+angular.module('ngScaffoldApp').controller("HtmlToolCtrl", ["$scope",
     function($scope) {
+
         
     }
 ]);

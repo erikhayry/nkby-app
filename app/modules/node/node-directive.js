@@ -1,34 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc directive
- * @name ngScaffoldApp.directive:box
- * @description
- * # box
- */
-/*angular.module('ngScaffoldApp')
-    .directive('node', function($compile) {
-        return {
-            restrict: 'E',
-            replace: true,
-            scope: {
-                data: '='
-            },
-            link: function postLink(scope, element, attrs) {
-
-
-
-                if (scope.data) {
-                    console.log(scope.data.name)
-                    scope.name = scope.data.name;
-                }
-
-            },
-            controller: 'NodeCtrl',
-            templateUrl: '/modules/node/node-tmplt.html'
-        };
-    });*/
-
 angular.module('ngScaffoldApp').directive('node', function () {
   return {
     restrict: 'E',
@@ -70,7 +41,7 @@ angular.module('ngScaffoldApp').directive('nodeChild', function ($compile) {
       }
 
       scope.open = function(node){
-        console.log(node)
+        scope.html = 'some data';
       }
 
 

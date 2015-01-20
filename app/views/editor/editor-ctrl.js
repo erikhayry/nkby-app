@@ -8,7 +8,7 @@
  * Controller of the ngScaffoldApp
  */
 angular.module('ngScaffoldApp')
-  .controller('MainCtrl', ["$scope", "DataFactory",
+  .controller('EditorCtrl', ["$scope", "DataFactory",
     function($scope, DataFactory) {
     	DataFactory.getJSON().then(function(json){
     		$scope.node = json.data
