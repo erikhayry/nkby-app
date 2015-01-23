@@ -4,6 +4,7 @@ angular.module('ngScaffoldApp').directive 'htmlTool', ->
         replace: true
         scope:
             html: '='
+            url: '='
 
         templateUrl: '/modules/htmlTool/html-tool-tmplt.html'
         link: (scope, element, attrs) ->

@@ -1,7 +1,8 @@
 <li class="list-group-item is-{{child.type}} clearfix">
     <!-- folder -->
     <span ng-if="child.children" class="clearfix">
-      {{child.path}}
+        {{child.path}}
+
       <span class="badge" ng-if="child.children">{{child.children.length}}</span>
       <span class="btn-group pull-right" ng-if="child.children">
         <button type="button" class="btn btn-default">Analyze</button>
@@ -11,11 +12,12 @@
     </span>
     <!-- file -->
     <span ng-if="!child.children">
-      {{child.path}}
+        {{child.path}}
       <span class="btn-group pull-right">
         <button type="button" class="btn btn-default">Analyze</button>
         <button type="button" class="btn btn-default">Trash</button>
         <button type="button" class="btn btn-default" ng-click="open()">Open</button>
       </span>
     </span>
+
 </li>

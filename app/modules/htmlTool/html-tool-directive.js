@@ -4,7 +4,8 @@ angular.module('ngScaffoldApp').directive('htmlTool', function() {
     restrict: 'E',
     replace: true,
     scope: {
-      html: '='
+      html: '=',
+      url: '='
     },
     templateUrl: '/modules/htmlTool/html-tool-tmplt.html',
     link: function(scope, element, attrs) {

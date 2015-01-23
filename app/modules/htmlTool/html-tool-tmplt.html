@@ -1,3 +1,26 @@
-<div>
-	Tool tmplt
+<div class="container">
+	<h2>{{url}}  <span class="badge">{{html.score}}</span></h2>
+	<div ng-bind-html="html.html" class="col-md-9"></div>
+	<div class="col-md-3">
+		<h3>People</h3>
+		<ul>
+			<li ng-repeat="person in html.people">{{person.text}}</li>
+		</ul>
+		<h3>Years</h3>
+		<ul>
+			<li ng-repeat="year in html.years">{{year.text}}</li>
+		</ul>
+		<h3>Streets</h3>
+		<ul>
+			<li ng-repeat="street in html.streets">{{street.text}}</li>
+		</ul>	
+		<h3>Links</h3>
+		<ul>
+			<li ng-repeat="link in html.links">{{link.text}}</li>
+		</ul>
+		<h3>Images</h3>
+		<ul>
+			<li ng-repeat="image in html.images">{{image.attribs.src}}</li>
+		</ul>						
+	</div>
 </div>

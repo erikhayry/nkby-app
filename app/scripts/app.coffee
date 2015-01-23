@@ -22,9 +22,14 @@ angular.module('ngScaffoldApp', [
   $urlRouterProvider.otherwise '/'
   
   # States
-  $stateProvider.state 'editor',
-    url: '/'
-    controller: 'EditorCtrl'
-    templateUrl: 'views/editor/editor-view.html'
+  $stateProvider.state 'tree',
+    url: '/tree/:path'
+    controller: 'TreeCtrl'
+    templateUrl: 'views/tree/tree-view.html'
+
+  $stateProvider.state 'html',
+    url: '/html/:path'
+    controller: 'HtmlCtrl'
+    templateUrl: 'views/html/html-view.html'    
 
   return
