@@ -9,7 +9,9 @@ angular.module('ngScaffoldApp').directive('htmlTool', function() {
     },
     templateUrl: '/modules/htmlTool/html-tool-tmplt.html',
     link: function(scope, element, attrs) {
-      return console.log(scope);
+      scope.goTo = function(index) {
+        $('body').scrollTo('.person-' + index);
+      };
     }
   };
 });

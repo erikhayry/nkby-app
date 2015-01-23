@@ -8,4 +8,8 @@ angular.module('ngScaffoldApp').directive 'htmlTool', ->
 
         templateUrl: '/modules/htmlTool/html-tool-tmplt.html'
         link: (scope, element, attrs) ->
-            console.log scope
+            scope.goTo = (index) ->
+            	$ 'body'
+            	.scrollTo '.person-'+index
+            	return
+            return
