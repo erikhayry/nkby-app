@@ -1,5 +1,4 @@
 <li class="list-group-item is-{{child.type}} clearfix">
-
     <!-- folder -->
     <span ng-if="child.children" class="clearfix">
       {{child.path}}
@@ -18,9 +17,5 @@
         <button type="button" class="btn btn-default">Trash</button>
         <button type="button" class="btn btn-default" ng-click="open()">Open</button>
       </span>
-
-      <html-tool ng-if="html" html="html"/>
-
     </span>
-
 </li>
