@@ -1,6 +1,5 @@
 'use strict';
-
-angular.module('ngScaffoldApp').directive('node', function () {
+angular.module('ngScaffoldApp').directive('node', function() {
   return {
     restrict: 'E',
     replace: true,
@@ -8,13 +7,11 @@ angular.module('ngScaffoldApp').directive('node', function () {
       nodes: '='
     },
     templateUrl: '/modules/node/node-tmplt.html',
-    link: function (scope, element, attrs) {
-      //console.log(scope.node)
-    }
-  }
-})
+    link: function(scope, element, attrs) {}
+  };
+});
 
-angular.module('ngScaffoldApp').directive('nodeChild', function ($compile) {
+angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootScope) {
   return {
     restrict: 'E',
     replace: true,
@@ -23,29 +20,28 @@ angular.module('ngScaffoldApp').directive('nodeChild', function ($compile) {
     },
     controller: 'NodeCtrl',
     templateUrl: '/modules/node/node-child-tmplt.html',
-    link: function (scope, element, attrs) {
-      
-      scope.toggle = function(node){
-        console.log()
-        var _ulEl = element.find('ul');
-
-        if(_ulEl.length > 0){
-          _ulEl.toggleClass('hidden');
+    link: function(scope, element, attrs) {
+      scope.toggle = function() {
+        var ulEl;
+        console.log(element.parent());
+        ulEl = element.find('ul');
+        if (ulEl.length > 0) {
+          ulEl.toggleClass('hidden');
+        } else {
+          scope.children = {
+            data: scope.child.children
+          };
+          $compile('<node nodes="children"></node>')(scope, function(cloned, scope) {
+            return element.append(cloned);
+          });
         }
-        
-        else if (node && angular.isArray(node.children)) {
-            $compile('<node nodes="child.children"></node>')(scope, function(cloned, scope) {
-                element.append(cloned);
-            });
-        }
-      }
-
-      scope.open = function(node){
-        scope.html = 'some data';
-      }
-
-
-
+      };
+      return scope.open = function(node) {
+        $rootScope.$broadcast('html-open', node);
+        return scope.html = 'some data';
+      };
     }
-  }
-})
+  };
+});
+
+//# sourceMappingURL=node-directive.js.map

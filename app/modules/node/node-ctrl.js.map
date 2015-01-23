@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "node-ctrl.js",
+  "sourceRoot": "",
+  "sources": [
+    "node-ctrl.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA,YAAA,CAAA;AAEA;AAAA;;;;;;GAFA;AAAA,OASO,CAAC,MAAR,CAAe,eAAf,CAA+B,CAAC,UAAhC,CAA2C,UAA3C,EAAuD,CACtD,QADsD,EAEtD,SAAC,MAAD,GAAA,CAFsD,CAAvD,CATA,CAAA"
+}

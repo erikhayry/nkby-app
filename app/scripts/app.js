@@ -1,34 +1,20 @@
 'use strict';
 
 /**
- * @ngdoc overview
- * @name ngScaffoldApp
- * @description
- * # ngScaffoldApp
- *
- * Main module of the application.
- */
-angular
-  .module('ngScaffoldApp', [
-    'ngAnimate',
-    'ngAria',
-    'ngCookies',
-    'ngMessages',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch',
-    'ui.router'
-  ])
-  .config(function ($stateProvider, $urlRouterProvider) {
+@ngdoc overview
+@name ngScaffoldApp
+@description
+ * ngScaffoldApp
 
+Main module of the application.
+ */
+angular.module('ngScaffoldApp', ['ngAnimate', 'ngAria', 'ngCookies', 'ngMessages', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.router']).config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
-  
-  // States
-  $stateProvider
-    .state('editor', {
-      url: '/',
-      controller: 'EditorCtrl',
-      templateUrl: 'views/editor/editor-view.html'
-    })
+  $stateProvider.state('editor', {
+    url: '/',
+    controller: 'EditorCtrl',
+    templateUrl: 'views/editor/editor-view.html'
   });
+});
+
+//# sourceMappingURL=app.js.map
