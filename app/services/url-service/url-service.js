@@ -1,15 +1,15 @@
 angular.module('ngScaffoldApp').factory('UrlFactory', [
   function() {
-    var _toTitle, _urlToPath;
-    _urlToPath = function(urlPath) {
-      return urlPath.replace(/-/g, '/');
+    var _decode, _encode;
+    _encode = function(str) {
+      return str.replace(/&046/g, ".").replace(/&047/g, "/");
     };
-    _toTitle = function(urlPath) {
-      return urlPath.replace(/-/g, ' ');
+    _decode = function(str) {
+      return str.replace(/\./g, "&046").replace(/\//g, "&047");
     };
     return {
-      urlToPath: _urlToPath,
-      toTitle: _toTitle
+      encode: _encode,
+      decode: _decode
     };
   }
 ]);

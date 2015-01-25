@@ -1,5 +1,5 @@
 'use strict'
-angular.module('ngScaffoldApp').directive 'htmlTool', ->
+angular.module('ngScaffoldApp').directive 'htmlTool', (UrlFactory) ->
         restrict: 'E'
         replace: true
         scope:
@@ -11,5 +11,6 @@ angular.module('ngScaffoldApp').directive 'htmlTool', ->
             scope.goTo = (index) ->
             	$ 'body'
             	.scrollTo '.person-'+index
-            	return
-            return
+
+
+            scope.encode = UrlFactory.encode

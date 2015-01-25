@@ -11,7 +11,7 @@ angular.module('ngScaffoldApp').directive('node', function() {
   };
 });
 
-angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootScope) {
+angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootScope, UrlFactory) {
   return {
     restrict: 'E',
     replace: true,
@@ -21,9 +21,9 @@ angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootS
     controller: 'NodeCtrl',
     templateUrl: '/modules/node/node-child-tmplt.html',
     link: function(scope, element, attrs) {
+      scope.decode = UrlFactory.decode;
       scope.toggle = function() {
         var ulEl;
-        console.log(element.parent());
         ulEl = element.find('ul');
         if (ulEl.length > 0) {
           ulEl.toggleClass('hidden');

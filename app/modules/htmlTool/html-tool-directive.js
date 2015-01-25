@@ -1,5 +1,5 @@
 'use strict';
-angular.module('ngScaffoldApp').directive('htmlTool', function() {
+angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
   return {
     restrict: 'E',
     replace: true,
@@ -10,8 +10,9 @@ angular.module('ngScaffoldApp').directive('htmlTool', function() {
     templateUrl: '/modules/htmlTool/html-tool-tmplt.html',
     link: function(scope, element, attrs) {
       scope.goTo = function(index) {
-        $('body').scrollTo('.person-' + index);
+        return $('body').scrollTo('.person-' + index);
       };
+      return scope.encode = UrlFactory.encode;
     }
   };
 });

@@ -19,7 +19,7 @@ angular.module('ngScaffoldApp', [
   'ngTouch'
   'ui.router'
 ]).config ($stateProvider, $urlRouterProvider) ->
-  $urlRouterProvider.otherwise '/'
+  $urlRouterProvider.otherwise '/tree/data&047tree&047sidor&046json'
   
   # States
   $stateProvider.state 'tree',

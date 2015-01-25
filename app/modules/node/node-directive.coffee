@@ -10,7 +10,7 @@ angular.module('ngScaffoldApp').directive 'node', ->
     link: (scope, element, attrs) ->
       #console.log scope
 
-angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope) ->
+angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, UrlFactory) ->
     restrict: 'E'
     replace: true
     scope:
@@ -19,9 +19,10 @@ angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope) ->
     controller: 'NodeCtrl'
     templateUrl: '/modules/node/node-child-tmplt.html'
     link: (scope, element, attrs) ->
-      scope.toggle = () ->
-          console.log element.parent()
 
+      scope.decode = UrlFactory.decode
+
+      scope.toggle = () ->
           ulEl = element.find('ul')
 
           if ulEl.length > 0

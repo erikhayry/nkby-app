@@ -9,7 +9,7 @@
 Main module of the application.
  */
 angular.module('ngScaffoldApp', ['ngAnimate', 'ngAria', 'ngCookies', 'ngMessages', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.router']).config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/tree/data&047tree&047sidor&046json');
   $stateProvider.state('tree', {
     url: '/tree/:path',
     controller: 'TreeCtrl',

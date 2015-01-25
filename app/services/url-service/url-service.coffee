@@ -1,11 +1,11 @@
 angular.module('ngScaffoldApp').factory 'UrlFactory', [
-	() ->
-		_urlToPath = (urlPath) ->
-			urlPath.replace(/-/g, '/')
-
-		_toTitle = (urlPath) ->
-			urlPath.replace(/-/g, ' ')			
+	() ->			
+		_encode  = (str) ->
+		    str.replace(/&046/g, ".").replace(/&047/g, "/")	
+		    
+		_decode = (str) ->
+			str.replace(/\./g, "&046").replace(/\//g, "&047")		    		
 		
-		urlToPath: _urlToPath
-		toTitle: _toTitle
+		encode: _encode
+		decode: _decode
 ]
