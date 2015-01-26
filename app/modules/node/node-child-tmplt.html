@@ -1,4 +1,4 @@
-<li class="list-group-item is-{{child.type}} clearfix">
+<li class="list-group-item is-{{child.status}} clearfix">
     <!-- folder -->
     <span ng-if="child.children" class="clearfix">
         {{child.path}}
@@ -6,7 +6,7 @@
       <span class="badge" ng-if="child.children">{{child.children.length}}</span>
       <span class="btn-group pull-right" ng-if="child.children">
         <button type="button" class="btn btn-default">Analyze</button>
-        <button type="button" class="btn btn-default">Trash</button>
+        <button type="button" class="btn btn-default" ng-click="trash(child.path)">Trash</button>
         <button class="btn btn-default" ng-click="toggle()">Show More</button>
       </span>
     </span>
@@ -15,7 +15,7 @@
         {{child.path}}
       <span class="btn-group pull-right">
         <button type="button" class="btn btn-default">Analyze</button>
-        <button type="button" class="btn btn-default">Trash</button>
+        <button type="button" class="btn btn-default" ng-click="trash(child.path)">Trash</button>
         <button type="button" class="btn btn-default" ng-click="open()">Open</button>
         <a href="" ui-sref="html({ path: decode(child.path) })">Open</a>
       </span>

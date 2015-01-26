@@ -4,7 +4,8 @@ angular.module('ngScaffoldApp').directive('node', function() {
     restrict: 'E',
     replace: true,
     scope: {
-      nodes: '='
+      nodes: '=',
+      trash: '='
     },
     templateUrl: '/modules/node/node-tmplt.html',
     link: function(scope, element, attrs) {}
@@ -16,7 +17,8 @@ angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootS
     restrict: 'E',
     replace: true,
     scope: {
-      child: '='
+      child: '=',
+      trash: '='
     },
     controller: 'NodeCtrl',
     templateUrl: '/modules/node/node-child-tmplt.html',
@@ -31,7 +33,7 @@ angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootS
           scope.children = {
             data: scope.child.children
           };
-          $compile('<node nodes="children"></node>')(scope, function(cloned, scope) {
+          $compile('<node nodes="children" trash="trash"></node>')(scope, function(cloned, scope) {
             return element.append(cloned);
           });
         }

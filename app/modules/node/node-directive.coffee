@@ -5,6 +5,7 @@ angular.module('ngScaffoldApp').directive 'node', ->
     replace: true
     scope:
       nodes: '='
+      trash: '='    
 
     templateUrl: '/modules/node/node-tmplt.html'
     link: (scope, element, attrs) ->
@@ -15,11 +16,11 @@ angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, Ur
     replace: true
     scope:
       child: '='
+      trash: '='      
 
     controller: 'NodeCtrl'
     templateUrl: '/modules/node/node-child-tmplt.html'
     link: (scope, element, attrs) ->
-
       scope.decode = UrlFactory.decode
 
       scope.toggle = () ->
@@ -33,7 +34,7 @@ angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, Ur
               data : scope.child.children
             }
               
-            $compile('<node nodes="children"></node>') scope, (cloned, scope) ->
+            $compile('<node nodes="children" trash="trash"></node>') scope, (cloned, scope) ->
               element.append cloned
           return            
 
