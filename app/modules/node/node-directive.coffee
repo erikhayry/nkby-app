@@ -11,7 +11,7 @@ angular.module('ngScaffoldApp').directive 'node', ->
     link: (scope, element, attrs) ->
       #console.log scope
 
-angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, UrlFactory) ->
+angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, UrlFactory, DB) ->
     restrict: 'E'
     replace: true
     scope:
@@ -23,6 +23,9 @@ angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, Ur
     link: (scope, element, attrs) ->
       scope.decode = UrlFactory.decode
 
+      scope.isFolder = (node) ->
+        return node.base.indexOf('.') < 0
+
       scope.toggle = () ->
           ulEl = element.find('ul')
 
@@ -30,12 +33,13 @@ angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, Ur
             ulEl.toggleClass('hidden') 
 
           else
-            scope.children = {
-              data : scope.child.children
-            }
-              
-            $compile('<node nodes="children" trash="trash"></node>') scope, (cloned, scope) ->
-              element.append cloned
+            
+            DB.getTree(UrlFactory.decode scope.child._id)
+            .then (tree) ->
+              $scope.children = tree
+              $compile('<node nodes="children" trash="trash"></node>') scope, (cloned, scope) ->
+                element.append cloned
+
           return            
 
       scope.open = (node) ->

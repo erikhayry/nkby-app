@@ -12,7 +12,7 @@ angular.module('ngScaffoldApp').directive('node', function() {
   };
 });
 
-angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootScope, UrlFactory) {
+angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootScope, UrlFactory, DB) {
   return {
     restrict: 'E',
     replace: true,
@@ -24,17 +24,20 @@ angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootS
     templateUrl: '/modules/node/node-child-tmplt.html',
     link: function(scope, element, attrs) {
       scope.decode = UrlFactory.decode;
+      scope.isFolder = function(node) {
+        return node.base.indexOf('.') < 0;
+      };
       scope.toggle = function() {
         var ulEl;
         ulEl = element.find('ul');
         if (ulEl.length > 0) {
           ulEl.toggleClass('hidden');
         } else {
-          scope.children = {
-            data: scope.child.children
-          };
-          $compile('<node nodes="children" trash="trash"></node>')(scope, function(cloned, scope) {
-            return element.append(cloned);
+          DB.getTree(UrlFactory.decode(scope.child._id)).then(function(tree) {
+            $scope.children = tree;
+            return $compile('<node nodes="children" trash="trash"></node>')(scope, function(cloned, scope) {
+              return element.append(cloned);
+            });
           });
         }
       };

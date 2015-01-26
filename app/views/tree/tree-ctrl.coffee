@@ -8,11 +8,9 @@ angular.module('ngScaffoldApp').controller 'TreeCtrl', [
 	'FilterFactory'
 	($scope, $stateParams, DataFactory, DB, FilterFactory) ->
 		
-		DataFactory.getJSON($stateParams.path)
-		.then (json) ->
-			FilterFactory.tree json.data
+		DB.getTree($stateParams.path)
 		.then (tree) ->
-			$scope.node = tree;
+			$scope.node = tree
 
 		$scope.trash = (path) ->
         	DB.trash path
