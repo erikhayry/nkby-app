@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "string.js",
+  "sourceRoot": "",
+  "sources": [
+    "string.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA,OAAO,CAAC,MAAR,CAAe,8BAAf,CACA,CAAC,OADD,CACS,cADT,EACyB,SAAA,GAAA;SACvB,SAAC,GAAD,GAAA;AACE,IAAA,IAAC,CAAA,QAAD,GAAY,SAAC,KAAD,EAAQ,SAAR,GAAA;aACV,GAAG,CAAC,OAAJ,CAAY,KAAZ,EAAmB,SAAnB,CAAA,KAAiC,CAAA,EADvB;IAAA,CAAZ,CAAA;WAEA,KAHF;EAAA,EADuB;AAAA,CADzB,CAAA,CAAA"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "child-events.js",
+  "sourceRoot": "",
+  "sources": [
+    "child-events.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA;;;;;GAAA;AAAA,OAMO,CAAC,MAAR,CAAe,wCAAf,CACA,CAAC,OADD,CACS,mBADT,EAC8B,SAAA,GAAA;SAC5B;AAAA,IAAA,eAAA,EAAiB,SAAC,KAAD,GAAA,CAAjB;IAD4B;AAAA,CAD9B,CANA,CAAA"
+}

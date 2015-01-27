@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "window.js",
+  "sourceRoot": "",
+  "sources": [
+    "window.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA;;;;GAAA;AAMA;AAAA;;;;;;;;GANA;AAAA,OAeO,CAAC,MAAR,CAAe,mBAAf,CACA,CAAC,SADD,CACW,cADX,EAEE;EAAC,UAAD,EAAa,UAAb,EAAyB,OAAzB,EAAkC,gBAAlC,EAAoD,cAApD,EACE,SAAC,QAAD,EAAW,QAAX,EAAqB,KAArB,EAA4B,cAA5B,EAA4C,MAA5C,GAAA;WACM,IAAA,MAAA,CAAO,QAAP,EAAiB,QAAjB,EAA2B,KAA3B,EAAkC,cAAlC,EADN;EAAA,CADF;CAFF,CAfA,CAAA"
+}

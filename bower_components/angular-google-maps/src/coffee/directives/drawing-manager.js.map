@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "drawing-manager.js",
+  "sourceRoot": "",
+  "sources": [
+    "drawing-manager.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA,OAAO,CAAC,MAAR,CAAe,mBAAf,CAAmC,CAAC,SAApC,CAA8C,sBAA9C,EAAsE;EACpE,sBADoE,EAC5C,SAAC,cAAD,GAAA;WAAoB,eAApB;EAAA,CAD4C;CAAtE,CAAA,CAAA"
+}

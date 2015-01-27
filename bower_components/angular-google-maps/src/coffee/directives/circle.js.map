@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "circle.js",
+  "sourceRoot": "",
+  "sources": [
+    "circle.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA;;;;GAAA;AAAA,OAKO,CAAC,MAAR,CAAe,mBAAf,CAAmC,CAAC,SAApC,CAA8C,cAA9C,EAA8D;EAC5D,cAD4D,EAC5C,SAAC,MAAD,GAAA;WAAY,OAAZ;EAAA,CAD4C;CAA9D,CALA,CAAA"
+}

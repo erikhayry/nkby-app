@@ -43,7 +43,10 @@ module.exports = (grunt) ->
           livereload: "<%= connect.options.livereload %>"
 
       coffee:
-        files: ["**/*.coffee"]
+        files: [
+          "**/*.coffee"
+          "!bower_components/**/*.coffee"
+        ]
         tasks: ["scripts"]
 
       jsTest:
@@ -322,6 +325,7 @@ module.exports = (grunt) ->
         src: [
           "**/*.coffee"
           "!node_modules/**/*.coffee"
+          "!bower_components/**/*.coffee"
         ]
         dest: ""
         ext: ".js"

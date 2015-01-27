@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "rectangle.js",
+  "sourceRoot": "",
+  "sources": [
+    "rectangle.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA;;;;;GAAA;AAAA,OAMO,CAAC,MAAR,CAAe,mBAAf,CAAmC,CAAC,SAApC,CAA8C,iBAA9C,EAAiE;EAC/D,cAD+D,EAE/D,iBAF+D,EAG/D,SAAC,IAAD,EAAO,SAAP,GAAA;WAAqB,UAArB;EAAA,CAH+D;CAAjE,CANA,CAAA"
+}

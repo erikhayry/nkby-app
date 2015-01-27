@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "markers.js",
+  "sourceRoot": "",
+  "sources": [
+    "markers.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA;;;;GAAA;AAMA;AAAA;;;;;;;;;GANA;AAAA,OAgBO,CAAC,MAAR,CAAe,mBAAf,CACA,CAAC,SADD,CACW,eADX,EAC4B;EAAC,UAAD,EAAa,eAAb,EAA8B,SAAC,QAAD,EAAW,OAAX,GAAA;WAC9C,IAAA,OAAA,CAAQ,QAAR,EAD8C;EAAA,CAA9B;CAD5B,CAhBA,CAAA"
+}

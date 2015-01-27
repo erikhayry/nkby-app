@@ -1,4 +1,4 @@
-<div class="container l-html-tool">
+<div class="container m-html-tool">
 	<h2>{{encode(url)}}  <span class="badge">{{html.score}}</span></h2>
 	<div ng-bind-html="html.html" class="col-md-9"></div>
 	<div class="col-md-3 l-html-tool-nav">
@@ -9,7 +9,7 @@
 				<li ng-repeat="item in value" ng-click="goTo(item.index, type)">{{item.text}}</li>
 			</ul>			
 		</div>
-		
+
 		<h3>Images</h3>
 		<ul>
 			<li ng-repeat="image in html.images" ng-click="goTo(image.index, 'image')">{{image.src.local}}</li>

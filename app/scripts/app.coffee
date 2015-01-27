@@ -18,7 +18,9 @@ angular.module('ngScaffoldApp', [
   'ngSanitize'
   'ngTouch'
   'ui.router'
-]).config ($stateProvider, $urlRouterProvider) ->
+  'uiGmapgoogle-maps'
+])
+.config ($stateProvider, $urlRouterProvider) ->
   $urlRouterProvider.otherwise '/tree/sidor'
   
   # States
@@ -33,3 +35,11 @@ angular.module('ngScaffoldApp', [
     templateUrl: 'views/html/html-view.html'    
 
   return
+
+.config (uiGmapGoogleMapApiProvider) ->
+    uiGmapGoogleMapApiProvider.configure        
+        key: 'AIzaSyB1t3KIHZN93NqVZjvLaXW3X8buZuuxCbc'
+        v: "3.17"
+        libraries: "weather,geometry,visualization"
+
+    return

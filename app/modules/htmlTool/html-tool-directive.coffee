@@ -8,9 +8,7 @@ angular.module('ngScaffoldApp').directive 'htmlTool', (UrlFactory) ->
 
         templateUrl: '/modules/htmlTool/html-tool-tmplt.html'
         link: (scope, element, attrs) ->
-
-            console.log scope.html
-
+            
             scope.types = 
                 'people': scope.html.people
                 'years': scope.html.years

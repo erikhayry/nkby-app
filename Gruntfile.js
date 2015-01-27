@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         }
       },
       coffee: {
-        files: ["**/*.coffee"],
+        files: ["**/*.coffee", "!bower_components/**/*.coffee"],
         tasks: ["scripts"]
       },
       jsTest: {
@@ -242,7 +242,7 @@ module.exports = function(grunt) {
         expand: true,
         flatten: false,
         cwd: "",
-        src: ["**/*.coffee", "!node_modules/**/*.coffee"],
+        src: ["**/*.coffee", "!node_modules/**/*.coffee", "!bower_components/**/*.coffee"],
         dest: "",
         ext: ".js"
       }

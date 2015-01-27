@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "i-drawing-manager.js",
+  "sourceRoot": "",
+  "sources": [
+    "i-drawing-manager.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA,OAAO,CAAC,MAAR,CAAe,kCAAf,CAAkD,CAAC,OAAnD,CAA2D,uBAA3D,EAAoF;EAAE,SAAA,GAAA;WACpF;AAAA,MAAA,QAAA,EAAU,IAAV;AAAA,MACA,OAAA,EAAS,IADT;AAAA,MAEA,OAAA,EAAS,GAAA,GAAM,iBAFf;AAAA,MAGA,KAAA,EACE;AAAA,QAAA,QAAA,EAAQ,GAAR;AAAA,QACA,OAAA,EAAS,GADT;AAAA,QAEA,OAAA,EAAS,GAFT;OAJF;MADoF;EAAA,CAAF;CAApF,CAAA,CAAA"
+}
