@@ -3,11 +3,10 @@
     <span ng-if="isFolder(child)" class="clearfix">
         {{child._id}}
 
-      <span class="badge" ng-if="child.children">{{child.children.length}}</span>
       <span class="btn-group pull-right" ng-if="isFolder(child)">
         <button type="button" class="btn btn-default">Analyze</button>
-        <button type="button" class="btn btn-default" ng-click="trash(child._id)">Trash</button>
-        <button class="btn btn-default" ng-click="toggle()">Show More</button>
+        <button type="button" class="btn btn-default" ng-click="addtotrash(child._id)">Trash</button>
+        <button class="btn btn-default" ng-click="toggleFolder()">Toggle</button>
       </span>
     </span>
     <!-- file -->
@@ -15,10 +14,10 @@
         {{child._id}}
       <span class="btn-group pull-right">
         <button type="button" class="btn btn-default">Analyze</button>
-        <button type="button" class="btn btn-default" ng-click="trash(child._id)">Trash</button>
-        <button type="button" class="btn btn-default" ng-click="open()">Open</button>
-        <a href="" ui-sref="html({ path: decode(child._id) })">Open</a>
-      </span>
+        <button type="button" class="btn btn-default" ng-click="addtotrash(child._id)">Trash</button>
+        <button type="button" class="btn btn-default" ng-click="openfile()">Open</button>
+<!--         <a href="" ui-sref="html({ path: decode(child._id) })">Open</a>
+ -->      </span>
     </span>
 
 </li>

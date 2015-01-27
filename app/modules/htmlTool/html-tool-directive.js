@@ -9,8 +9,23 @@ angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
     },
     templateUrl: '/modules/htmlTool/html-tool-tmplt.html',
     link: function(scope, element, attrs) {
-      scope.goTo = function(index) {
-        return $('body').scrollTo('.person-' + index);
+      console.log(scope.html);
+      scope.types = {
+        'people': scope.html.people,
+        'years': scope.html.years,
+        'streets': scope.html.streets
+      };
+      scope.goTo = function(index, type) {
+        var elInCopy;
+        elInCopy = document.querySelectorAll('.' + type + '-' + index)[0];
+        elInCopy.scrollIntoView({
+          block: "end",
+          behavior: "smooth"
+        });
+        elInCopy.classList.add('in-view');
+        window.setTimeout(function() {
+          return elInCopy.classList.remove('in-view');
+        }, 2000);
       };
       return scope.encode = UrlFactory.encode;
     }

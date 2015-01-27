@@ -1,3 +1,11 @@
 <ul class="list-group">
-	<node-child ng-repeat="nodeChild in nodes.data" child="nodeChild" trash="trash"></node-child>
+	<node-child 
+		ng-repeat="nodeChild in nodes.data" 
+		child="nodeChild" 
+		addtotrash="addtotrash"
+		openfile="openfile"
+		closefile="closefile"
+		openfolders="openfolders"
+		>
+	</node-child>
 </ul>

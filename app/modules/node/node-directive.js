@@ -5,7 +5,10 @@ angular.module('ngScaffoldApp').directive('node', function() {
     replace: true,
     scope: {
       nodes: '=',
-      trash: '='
+      addtotrash: '=',
+      openfile: '=',
+      closefile: '=',
+      openfolders: '='
     },
     templateUrl: '/modules/node/node-tmplt.html',
     link: function(scope, element, attrs) {}
@@ -18,33 +21,47 @@ angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootS
     replace: true,
     scope: {
       child: '=',
-      trash: '='
+      addtotrash: '=',
+      openfile: '=',
+      closefile: '=',
+      openfolders: '='
     },
     controller: 'NodeCtrl',
     templateUrl: '/modules/node/node-child-tmplt.html',
     link: function(scope, element, attrs) {
+      var insertNode, toggleFolder;
+      insertNode = function() {
+        return DB.getTree(UrlFactory.decode(scope.child._id)).then(function(tree) {
+          scope.children = tree;
+          return $compile('<node nodes="children" addtotrash="addtotrash" openfile="openfile" closefile="closefile" openfolders="openfolders"></node>')(scope, function(cloned, scope) {
+            return element.append(cloned);
+          });
+        });
+      };
       scope.decode = UrlFactory.decode;
       scope.isFolder = function(node) {
         return node.base.indexOf('.') < 0;
       };
-      scope.toggle = function() {
+      toggleFolder = scope.toggleFolder = function() {
         var ulEl;
         ulEl = element.find('ul');
         if (ulEl.length > 0) {
+          if (ulEl.hasClass("hidden") && scope.openfolders.indexOf(scope.child._id) < 0) {
+            scope.openfolders.push(scope.child._id);
+          } else {
+            scope.openfolders.splice(scope.openfolders.indexOf(scope.child._id), 1);
+          }
           ulEl.toggleClass('hidden');
         } else {
-          DB.getTree(UrlFactory.decode(scope.child._id)).then(function(tree) {
-            $scope.children = tree;
-            return $compile('<node nodes="children" trash="trash"></node>')(scope, function(cloned, scope) {
-              return element.append(cloned);
-            });
-          });
+          if (scope.openfolders.indexOf(scope.child._id) < 0) {
+            scope.openfolders.push(scope.child._id);
+          }
+          insertNode();
         }
       };
-      return scope.open = function(node) {
-        $rootScope.$broadcast('html-open', node);
-        return scope.html = 'some data';
-      };
+      if (scope.openfolders.indexOf(scope.child._id) > -1) {
+        toggleFolder();
+      }
     }
   };
 });

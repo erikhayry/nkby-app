@@ -23,17 +23,14 @@ module.exports = function(grunt) {
       },
       coffee: {
         files: ["**/*.coffee"],
-        tasks: ["scripts"],
-        options: {
-          livereload: "<%= connect.options.livereload %>"
-        }
+        tasks: ["scripts"]
       },
       jsTest: {
         files: ["test/spec/{,*/}*.js"],
         tasks: ["newer:jshint:test", "karma"]
       },
       styles: {
-        files: ["<%= yeoman.app %>/styles/{,*/}*.less", "<%= yeoman.app %>/modules/{,*/}*.less"],
+        files: ["<%= yeoman.app %>/styles/{,*/}*.less", "<%= yeoman.app %>/modules/{,*/}*.less", "<%= yeoman.app %>/views/{,*/}*.less"],
         tasks: ["style", "newer:copy:styles"]
       },
       gruntfile: {
@@ -306,9 +303,9 @@ module.exports = function(grunt) {
       },
       style: {
         expand: true,
-        cwd: "<%= yeoman.app %>/styles/",
-        src: ["**/*.less", "!*.min.css"],
-        dest: "<%= yeoman.app %>/styles/"
+        cwd: "<%= yeoman.app %>/",
+        src: ["**/*.less", "!*.min.css", "!bower_components/**/*.less"],
+        dest: "<%= yeoman.app %>/"
       }
     }
   });

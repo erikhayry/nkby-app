@@ -45,8 +45,6 @@ module.exports = (grunt) ->
       coffee:
         files: ["**/*.coffee"]
         tasks: ["scripts"]
-        options:
-          livereload: "<%= connect.options.livereload %>"
 
       jsTest:
         files: ["test/spec/{,*/}*.js"]
@@ -59,6 +57,7 @@ module.exports = (grunt) ->
         files: [
           "<%= yeoman.app %>/styles/{,*/}*.less"
           "<%= yeoman.app %>/modules/{,*/}*.less"
+          "<%= yeoman.app %>/views/{,*/}*.less"
         ]
         tasks: [
           "style"
@@ -388,12 +387,13 @@ module.exports = (grunt) ->
 
       style:
         expand: true
-        cwd: "<%= yeoman.app %>/styles/"
+        cwd: "<%= yeoman.app %>/"
         src: [
           "**/*.less"
           "!*.min.css"
+          "!bower_components/**/*.less"
         ]
-        dest: "<%= yeoman.app %>/styles/"
+        dest: "<%= yeoman.app %>/"
 
   
   # utils

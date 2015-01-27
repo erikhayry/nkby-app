@@ -1,3 +1,20 @@
 <div class="l-tree">
-	<node nodes="node" trash="trash"></node>
+	<div class="btn-toolbar" role="toolbar">
+		<div class="btn-group" role="group">Trash selected</div>
+		<div class="btn-group" role="group">...</div>
+		<div class="btn-group" role="group">...</div>
+	</div>
+
+	<div class="l-tree-iframe-wrapper" ng-if="htmlurl" >
+		<button button type="button" class="btn btn-default" ng-click="closefile()">x</button>
+		<iframe src="{{htmlurl}}" frameborder="0" class="l-tree-iframe"></iframe>		
+	</div>
+	<node 
+		nodes="node" 
+		addtotrash="addtotrash" 
+		closefile="closefile" 
+		openfile="openfile" 
+		openfolders="openfolders"
+	>
+	</node>
 </div>
