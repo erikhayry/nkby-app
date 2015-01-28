@@ -1,5 +1,5 @@
 'use strict';
-angular.module('ngScaffoldApp').directive('map', function($log, DB) {
+angular.module('ngScaffoldApp').directive('map', function($log, $q, DB) {
   return {
     restrict: 'E',
     replace: true,
@@ -38,9 +38,16 @@ angular.module('ngScaffoldApp').directive('map', function($log, DB) {
       scope.marker = {
         events: {
           click: function(marker, eventName, args) {
-            var place;
+            var item, items, place;
             place = _.find(scope.markers, {
               '_id': marker.key
+            });
+            items = [];
+            for (item in place.items) {
+              items.push(DB.getById('items', place.items[item]));
+            }
+            $q.all(items).then(function(data) {
+              return scope.activeMarker.items = data;
             });
             return scope.$apply(function() {
               scope.activeMarker = {
@@ -54,7 +61,7 @@ angular.module('ngScaffoldApp').directive('map', function($log, DB) {
         }
       };
       addNewItem = function(item, people, years) {
-        var person, selectedPeople, selectedYears, year;
+        var itemSrc, person, selectedPeople, selectedYears, year;
         selectedPeople = [];
         for (person in people) {
           if (people[person]) {
@@ -67,16 +74,20 @@ angular.module('ngScaffoldApp').directive('map', function($log, DB) {
             selectedYears.push(year);
           }
         }
+        if (item.node) {
+          itemSrc = item.node.src.www;
+        }
         return DB.post('items', {
           parent: item.parent,
-          src: item.node.src.www,
+          url: item.url,
+          name: item.name,
+          src: itemSrc,
           type: item.type,
           people: selectedPeople,
           years: selectedYears
         });
       };
       updateMap = function() {
-        console.log('updateMap');
         return DB.get('map').then(function(markers) {
           console.log(markers);
           scope.newPlace = '';
@@ -111,6 +122,9 @@ angular.module('ngScaffoldApp').directive('map', function($log, DB) {
         }).then(function(place) {
           return updateMap();
         });
+      };
+      scope.cancel = function() {
+        return scope.$emit('addItem', '');
       };
       return updateMap();
     }

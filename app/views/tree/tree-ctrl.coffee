@@ -26,6 +26,8 @@ angular.module('ngScaffoldApp').controller 'TreeCtrl', [
         	DB.trash UrlFactory.decode path
         	.then (json) ->
         		getTree()
+        	,(e) ->
+        		getTree()
 
         getTree()					
 ]

@@ -17,6 +17,8 @@ angular.module('ngScaffoldApp').controller('TreeCtrl', [
     $scope.addtotrash = function(path) {
       return DB.trash(UrlFactory.decode(path)).then(function(json) {
         return getTree();
+      }, function(e) {
+        return getTree();
       });
     };
     return getTree();

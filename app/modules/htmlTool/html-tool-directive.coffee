@@ -5,10 +5,17 @@ angular.module('ngScaffoldApp').directive 'htmlTool', (UrlFactory) ->
         scope:
             html: '='
             url: '='
+            item: '='
 
         templateUrl: '/modules/htmlTool/html-tool-tmplt.html'
         link: (scope, element, attrs) ->
             
+            toArr = (obj) ->
+                arr = []
+                for o of obj
+                  arr.push obj[o].text
+                _.uniq(arr);
+
             scope.types = 
                 'people': scope.html.people
                 'years': scope.html.years
@@ -28,12 +35,22 @@ angular.module('ngScaffoldApp').directive 'htmlTool', (UrlFactory) ->
 
             scope.encode = UrlFactory.encode
 
+            scope.addText = (url) ->
+                item =
+                    type: 'text'
+                    url: url
+                    years: toArr scope.html.years
+                    people: toArr scope.html.people
+                    parent: scope.encode scope.url                    
+
+                scope.$emit('addItem', item)
+
             scope.addImage = (node) ->
                 item =
                     type: 'image'
                     node: node
-                    years: scope.html.years
-                    people: scope.html.people
+                    years: toArr scope.html.years
+                    people: toArr scope.html.people
                     parent: scope.encode scope.url
 
                 scope.$emit('addItem', item)

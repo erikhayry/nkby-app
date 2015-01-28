@@ -1,15 +1,22 @@
 <div class="container m-html-tool">
 	<h2>{{encode(url)}}  <span class="badge">{{html.score}}</span></h2>
+	
+	<div class="input-group">
+		<button ng-click="addText(encode(url))">Add</button>
+	</div>	
+	
+	<br>
+
 	<div ng-bind-html="html.html" class="col-md-8"></div>
-	<div class="col-md-4 m-html-tool-nav">
+	<div class="col-md-4 m-html-tool-nav" ng-if="!item">
 		<h3>Images</h3>
 		<ul class="list-group">
 			<li ng-repeat="image in html.images" class="list-group-item">
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">+</button>
+						<button class="btn btn-default" type="button" ng-click="addImage(image)">+</button>
 					</span>
-					<input type="text" class="form-control" ng-model="image.src.local" placeholder="Search for...">
+					<input type="text" class="form-control" ng-model="image.src.local">
 				</div>
 			</li>
 		</ul>						

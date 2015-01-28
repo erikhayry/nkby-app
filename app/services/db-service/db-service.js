@@ -1,6 +1,6 @@
 angular.module('ngScaffoldApp').factory('DB', [
   '$http', 'UrlFactory', function($http, UrlFactory) {
-    var _get, _getPlace, _getTree, _post, _put, _trash;
+    var _get, _getById, _getPlace, _getTree, _post, _put, _trash;
     _trash = function(path) {
       return $http.put('http://localhost:3000/collections/tree/' + path, {
         'trashed': true
@@ -11,6 +11,9 @@ angular.module('ngScaffoldApp').factory('DB', [
     };
     _get = function(collection) {
       return $http.get('http://localhost:3000/collections/' + collection);
+    };
+    _getById = function(collection, id) {
+      return $http.get('http://localhost:3000/collections/' + collection + '/' + id);
     };
     _post = function(collection, data) {
       return $http.post('http://localhost:3000/collections/' + collection, data);
@@ -25,6 +28,7 @@ angular.module('ngScaffoldApp').factory('DB', [
       trash: _trash,
       getPlace: _getPlace,
       get: _get,
+      getById: _getById,
       post: _post,
       put: _put,
       getTree: _getTree

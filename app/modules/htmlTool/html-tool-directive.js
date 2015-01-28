@@ -5,10 +5,20 @@ angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
     replace: true,
     scope: {
       html: '=',
-      url: '='
+      url: '=',
+      item: '='
     },
     templateUrl: '/modules/htmlTool/html-tool-tmplt.html',
     link: function(scope, element, attrs) {
+      var toArr;
+      toArr = function(obj) {
+        var arr, o;
+        arr = [];
+        for (o in obj) {
+          arr.push(obj[o].text);
+        }
+        return _.uniq(arr);
+      };
       scope.types = {
         'people': scope.html.people,
         'years': scope.html.years,
@@ -27,13 +37,24 @@ angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
         }, 2000);
       };
       scope.encode = UrlFactory.encode;
+      scope.addText = function(url) {
+        var item;
+        item = {
+          type: 'text',
+          url: url,
+          years: toArr(scope.html.years),
+          people: toArr(scope.html.people),
+          parent: scope.encode(scope.url)
+        };
+        return scope.$emit('addItem', item);
+      };
       scope.addImage = function(node) {
         var item;
         item = {
           type: 'image',
           node: node,
-          years: scope.html.years,
-          people: scope.html.people,
+          years: toArr(scope.html.years),
+          people: toArr(scope.html.people),
           parent: scope.encode(scope.url)
         };
         scope.$emit('addItem', item);

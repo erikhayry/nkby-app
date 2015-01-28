@@ -1,5 +1,5 @@
 'use strict'
-angular.module('ngScaffoldApp').directive 'map', ($log, DB) ->
+angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB) ->
         restrict: 'E'
         replace: true
         transclude: true
@@ -31,6 +31,15 @@ angular.module('ngScaffoldApp').directive 'map', ($log, DB) ->
                 events: 
                     click: (marker, eventName, args) ->  
                         place = _.find(scope.markers, {'_id': marker.key})
+
+                        items = []
+                        for item of place.items
+                          items.push DB.getById 'items', place.items[item]
+
+                        $q.all items
+                        .then (data) ->
+                            scope.activeMarker.items = data
+
                         scope.$apply () ->
                             scope.activeMarker = 
                                 id: marker.key   
@@ -48,10 +57,14 @@ angular.module('ngScaffoldApp').directive 'map', ($log, DB) ->
                 for year of years
                   selectedYears.push year if years[year]
 
+                itemSrc = item.node.src.www if item.node
+
                 DB.post 'items', 
                         {
-                            parent: item.parent, 
-                            src: item.node.src.www, 
+                            parent: item.parent
+                            url: item.url
+                            name: item.name
+                            src: itemSrc 
                             type: item.type
                             people: selectedPeople
                             years: selectedYears
@@ -59,7 +72,6 @@ angular.module('ngScaffoldApp').directive 'map', ($log, DB) ->
                         } 
 
             updateMap = () ->
-                console.log 'updateMap'
                 DB.get 'map'
                 .then (markers) ->
                     console.log markers
@@ -98,6 +110,8 @@ angular.module('ngScaffoldApp').directive 'map', ($log, DB) ->
                 .then (place) ->
                     updateMap() 
 
+            scope.cancel = () ->
+                scope.$emit('addItem', '')
 
             updateMap()
 
