@@ -6,6 +6,7 @@ angular.module('ngScaffoldApp').directive('map', function($log, DB) {
     transclude: true,
     templateUrl: '/modules/map/map-tmplt.html',
     link: function(scope, element, attrs) {
+      var addNewItem, updateMap;
       scope.activeMarker = '';
       scope.newPlace = {};
       scope.selectedPeople = {};
@@ -23,11 +24,13 @@ angular.module('ngScaffoldApp').directive('map', function($log, DB) {
         events: {
           click: function(map, eventName, args) {
             return scope.$apply(function() {
-              scope.newPlace.coords = {
-                latitude: args[0].latLng.k,
-                longitude: args[0].latLng.C
+              scope.newPlace = {
+                coords: {
+                  latitude: args[0].latLng.k,
+                  longitude: args[0].latLng.C
+                }
               };
-              return scope.activeMarker = {};
+              return scope.activeMarker = '';
             });
           }
         }
@@ -45,35 +48,48 @@ angular.module('ngScaffoldApp').directive('map', function($log, DB) {
                 name: place.name,
                 coords: place.longitude + ',' + place.latitude
               };
-              return scope.newPlace = {};
+              return scope.newPlace = '';
             });
           }
         }
       };
-      DB.get('map').then(function(markers) {
-        return scope.markers = markers.data;
-      });
-      scope.addNew = function(item, newPlace) {
+      addNewItem = function(item, people, years) {
         var person, selectedPeople, selectedYears, year;
         selectedPeople = [];
-        for (person in scope.selectedPeople) {
-          if (scope.selectedPeople[person]) {
+        for (person in people) {
+          if (people[person]) {
             selectedPeople.push(person);
           }
         }
         selectedYears = [];
-        for (year in scope.selectedYears) {
-          if (scope.selectedYears[year]) {
+        for (year in years) {
+          if (years[year]) {
             selectedYears.push(year);
           }
         }
         return DB.post('items', {
           parent: item.parent,
-          src: item.url,
+          src: item.node.src.www,
           type: item.type,
           people: selectedPeople,
           years: selectedYears
-        }).then(function(item) {
+        });
+      };
+      updateMap = function() {
+        console.log('updateMap');
+        return DB.get('map').then(function(markers) {
+          console.log(markers);
+          scope.newPlace = '';
+          scope.markers = markers.data;
+          return scope.$emit('alert', {
+            type: 'success',
+            message: 'Map Updated'
+          });
+        });
+      };
+      scope.addNew = function(item, newPlace) {
+        return addNewItem(item, scope.selectedPeople, scope.selectedYears).then(function(item) {
+          console.log('item added');
           return DB.post('map', {
             name: newPlace.name,
             latitude: newPlace.coords.latitude,
@@ -81,14 +97,22 @@ angular.module('ngScaffoldApp').directive('map', function($log, DB) {
             items: [item.data[0]._id]
           });
         }).then(function(place) {
-          return DB.get('map');
-        }).then(function(markers) {
-          return scope.markers = markers.data;
+          console.log(place);
+          return updateMap();
         });
       };
-      return scope.updatePlace = function(itemId, activeMarker) {
-        return console.log('Updating ' + activeMarker + ' with ' + itemId);
+      scope.updatePlace = function(item, activeMarkerId) {
+        return addNewItem(item, scope.selectedPeople, scope.selectedYears).then(function(item) {
+          return DB.put('map', activeMarkerId, {
+            $addToSet: {
+              items: item.data[0]._id
+            }
+          });
+        }).then(function(place) {
+          return updateMap();
+        });
       };
+      return updateMap();
     }
   };
 });

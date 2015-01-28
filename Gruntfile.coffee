@@ -326,6 +326,7 @@ module.exports = (grunt) ->
           "**/*.coffee"
           "!node_modules/**/*.coffee"
           "!bower_components/**/*.coffee"
+          "!app/bower_components/**/*.coffee"
         ]
         dest: ""
         ext: ".js"

@@ -20,11 +20,12 @@ angular.module('ngScaffoldApp').directive 'map', ($log, DB) ->
                 events: 
                     click: (map, eventName, args) ->                         
                         scope.$apply () ->
-                            scope.newPlace.coords = 
-                                latitude: args[0].latLng.k 
-                                longitude: args[0].latLng.C
+                            scope.newPlace =
+                                coords: 
+                                    latitude: args[0].latLng.k 
+                                    longitude: args[0].latLng.C
 
-                            scope.activeMarker = {}
+                            scope.activeMarker = ''
         
             scope.marker =
                 events: 
@@ -36,31 +37,44 @@ angular.module('ngScaffoldApp').directive 'map', ($log, DB) ->
                                 name: place.name
                                 coords: place.longitude + ',' + place.latitude
 
-                            scope.newPlace = {}
+                            scope.newPlace = ''
 
-            DB.get 'map' 
-            .then (markers) ->
-                scope.markers = markers.data
-
-            scope.addNew = (item, newPlace) ->
+            addNewItem = (item, people, years) ->
                 selectedPeople = []
-                for person of scope.selectedPeople
-                  selectedPeople.push person if scope.selectedPeople[person]
+                for person of people
+                  selectedPeople.push person if people[person]
 
                 selectedYears = []
-                for year of scope.selectedYears
-                  selectedYears.push year if scope.selectedYears[year]
+                for year of years
+                  selectedYears.push year if years[year]
 
                 DB.post 'items', 
                         {
                             parent: item.parent, 
-                            src: item.url, 
+                            src: item.node.src.www, 
                             type: item.type
                             people: selectedPeople
                             years: selectedYears
 
-                        }
+                        } 
+
+            updateMap = () ->
+                console.log 'updateMap'
+                DB.get 'map'
+                .then (markers) ->
+                    console.log markers
+                    scope.newPlace = ''
+                    scope.markers = markers.data      
+                    scope.$emit('alert', {
+                            type: 'success'
+                            message: 'Map Updated'
+                        })
+                                     
+
+            scope.addNew = (item, newPlace) ->
+                addNewItem item, scope.selectedPeople, scope.selectedYears
                 .then (item) ->
+                    console.log 'item added'
                     DB.post 'map', 
                             {
                                 name: newPlace.name, 
@@ -71,9 +85,25 @@ angular.module('ngScaffoldApp').directive 'map', ($log, DB) ->
                                 ]
                             }
                 .then (place) ->
-                    DB.get 'map'
-                .then (markers) ->
-                    scope.markers = markers.data                    
+                    console.log place
+                    updateMap()                   
 
-            scope.updatePlace = (itemId, activeMarker) ->
-                console.log 'Updating ' + activeMarker + ' with ' + itemId    
+            scope.updatePlace = (item, activeMarkerId) ->
+                addNewItem item, scope.selectedPeople, scope.selectedYears
+                .then (item) ->
+                    DB.put 'map', activeMarkerId,
+                            { 
+                                $addToSet: {items: item.data[0]._id}
+                            } 
+                .then (place) ->
+                    updateMap() 
+
+
+            updateMap()
+
+
+
+
+
+
+

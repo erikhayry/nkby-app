@@ -47,7 +47,7 @@
 			<button ng-click="addNew(item, newPlace)" ng-if="newPlace.coords && !activeMarker" class="btn btn-default">
 				Add
 			</button>
-			<button ng-click="updatePlace(item.id, activeMarker.id)" ng-if="activeMarker" class="btn btn-default">
+			<button ng-click="updatePlace(item, activeMarker.id)" ng-if="activeMarker" class="btn btn-default">
 				Add to {{activeMarker.name}}
 			</button>
 

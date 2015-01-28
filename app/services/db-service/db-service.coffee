@@ -15,6 +15,9 @@ angular.module('ngScaffoldApp').factory 'DB', [
 		_post = (collection, data)->
 			$http.post 'http://localhost:3000/collections/'+collection, data
 
+		_put = (collection, id, data)->
+			$http.put 'http://localhost:3000/collections/'+collection+'/'+id, data
+
 		_getTree = (parent)->
 			$http.get 'http://localhost:3000/collections/tree/'+parent			
 			 
@@ -22,5 +25,6 @@ angular.module('ngScaffoldApp').factory 'DB', [
 		getPlace: _getPlace
 		get: _get
 		post: _post
+		put: _put
 		getTree: _getTree
 ]

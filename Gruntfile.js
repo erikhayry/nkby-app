@@ -242,7 +242,7 @@ module.exports = function(grunt) {
         expand: true,
         flatten: false,
         cwd: "",
-        src: ["**/*.coffee", "!node_modules/**/*.coffee", "!bower_components/**/*.coffee"],
+        src: ["**/*.coffee", "!node_modules/**/*.coffee", "!bower_components/**/*.coffee", "!app/bower_components/**/*.coffee"],
         dest: "",
         ext: ".js"
       }
