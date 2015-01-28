@@ -5,7 +5,8 @@ angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
     replace: true,
     scope: {
       html: '=',
-      url: '='
+      url: '=',
+      item: '='
     },
     templateUrl: '/modules/htmlTool/html-tool-tmplt.html',
     link: function(scope, element, attrs) {
@@ -26,7 +27,10 @@ angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
           return elInCopy.classList.remove('in-view');
         }, 2000);
       };
-      return scope.encode = UrlFactory.encode;
+      scope.encode = UrlFactory.encode;
+      return scope.addImage = function(node) {
+        return console.log(node);
+      };
     }
   };
 });

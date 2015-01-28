@@ -12,7 +12,9 @@
 
 		<h3>Images</h3>
 		<ul>
-			<li ng-repeat="image in html.images" ng-click="goTo(image.index, 'image')">{{image.src.local}}</li>
+			<li ng-repeat="image in html.images">
+				<button ng-click="addImage(image)">+</button> <button ng-click="goTo(image.index, 'image')">{{image.src.local}}</button> 
+			</li>
 		</ul>						
 	</div>
 </div>

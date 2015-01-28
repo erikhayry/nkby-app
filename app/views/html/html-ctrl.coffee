@@ -7,6 +7,7 @@ angular.module('ngScaffoldApp').controller 'HtmlCtrl', [
 	'UrlFactory'
 	($scope, $stateParams, DataFactory, UrlFactory) ->
 		$scope.url = UrlFactory.decode $stateParams.path
+		$scope.item = ''
 		
 		DataFactory.getHTML($stateParams.path).then (html) ->
 			$scope.html = html.data

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "drag-zoom.js",
+  "sourceRoot": "",
+  "sources": [
+    "drag-zoom.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA;;;GAAA;AAAA,OAIO,CAAC,MAAR,CAAe,mBAAf,CACA,CAAC,SADD,CACW,gBADX,EAC6B;EAAE,gBAAF,EAAoB,SAAC,QAAD,GAAA;WAAc,SAAd;EAAA,CAApB;CAD7B,CAJA,CAAA"
+}

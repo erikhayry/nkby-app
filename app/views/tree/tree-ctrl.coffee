@@ -11,17 +11,13 @@ angular.module('ngScaffoldApp').controller 'TreeCtrl', [
 	($scope, $sce, $stateParams, DataFactory, DB, FilterFactory, UrlFactory) ->
 		$scope.openfolders = []
 
-
-		$scope.$watch 'openfolders', (newValue, oldValue) ->
-			console.log 'chnaged;'
-
 		getTree = () ->
 			DB.getTree(UrlFactory.decode $stateParams.path)
 			.then (tree) ->
 				$scope.node = tree
 
-		$scope.openfile = () ->
-			$scope.htmlurl = $sce.trustAsResourceUrl 'http://bisnode.com'
+		$scope.openfile = (url) ->
+			$scope.htmlurl = '#/html/' + $sce.trustAsResourceUrl UrlFactory.decode url
 
 		$scope.closefile = () ->
 			$scope.htmlurl = ''   

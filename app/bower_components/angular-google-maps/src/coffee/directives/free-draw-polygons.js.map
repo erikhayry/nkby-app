@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "free-draw-polygons.js",
+  "sourceRoot": "",
+  "sources": [
+    "free-draw-polygons.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA;;;;GAAA;AAAA,OAKO,CAAC,MAAR,CAAe,mBAAf,CAAmC,CAAC,SAApC,CAA8C,wBAA9C,EAAwE;EACtE,2BADsE,EAC1C,SAAC,gBAAD,GAAA;WACtB,IAAA,gBAAA,CAAA,EADsB;EAAA,CAD0C;CAAxE,CALA,CAAA"
+}

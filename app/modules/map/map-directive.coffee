@@ -15,9 +15,9 @@ angular.module('ngScaffoldApp').directive 'map', ($log, UrlFactory, uiGmapGoogle
 
             scope.map =
                 center:
-                    latitude: 40.1451
-                    longitude: -99.6680
-                zoom: 4
+                    latitude: 63.522180 
+                    longitude: 22.530485
+                zoom: 14
                 events: 
                     click: (map, eventName, args) ->                         
                         scope.$apply () ->
@@ -27,8 +27,8 @@ angular.module('ngScaffoldApp').directive 'map', ($log, UrlFactory, uiGmapGoogle
             scope.marker =
                 id: 1
                 coords:
-                    latitude: 40.1451
-                    longitude: -99.6680
+                    latitude: 63.522180 
+                    longitude: 22.530485
                 events: 
                     click: (marker, eventName, args) ->                         
                         scope.$apply () ->

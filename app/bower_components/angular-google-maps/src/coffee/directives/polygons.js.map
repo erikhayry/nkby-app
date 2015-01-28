@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "polygons.js",
+  "sourceRoot": "",
+  "sources": [
+    "polygons.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA;;;;;GAAA;AAAA,OAMO,CAAC,MAAR,CAAe,mBAAf,CAAmC,CAAC,SAApC,CAA8C,gBAA9C,EAAgE;EAAC,gBAAD,EAAmB,SAAC,QAAD,GAAA;WAAkB,IAAA,QAAA,CAAA,EAAlB;EAAA,CAAnB;CAAhE,CANA,CAAA"
+}

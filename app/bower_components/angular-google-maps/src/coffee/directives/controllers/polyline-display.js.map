@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "polyline-display.js",
+  "sourceRoot": "",
+  "sources": [
+    "polyline-display.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA,OAAO,CAAC,MAAR,CAAe,mBAAf,CACA,CAAC,UADD,CACY,iCADZ,EAC+C;EAAC,QAAD,EAAW,SAAC,MAAD,GAAA;WACtD,MAAM,CAAC,iBAAP,GAA2B,SAAA,GAAA;aACvB,MAAM,CAAC,MAAM,CAAC,KAAd,GAAsB,CAAK,MAAM,CAAC,MAAM,CAAC,KAAd,KAAuB,SAA3B,GAA2C,KAA3C,GAAsD,SAAvD,EADC;IAAA,EAD2B;EAAA,CAAX;CAD/C,CAAA,CAAA"
+}

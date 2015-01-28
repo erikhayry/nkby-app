@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "polyline.js",
+  "sourceRoot": "",
+  "sources": [
+    "polyline.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA;;;;GAAA;AAAA,OAKO,CAAC,MAAR,CAAe,mBAAf,CAAmC,CAAC,SAApC,CAA8C,gBAA9C,EAAgE;EAAE,gBAAF,EAAoB,SAAC,QAAD,GAAA;WAAkB,IAAA,QAAA,CAAA,EAAlB;EAAA,CAApB;CAAhE,CALA,CAAA"
+}
