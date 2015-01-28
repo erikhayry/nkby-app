@@ -1,4 +1,8 @@
-<div class="l-html">	
-	<map ng-if="item"/>
-	<html-tool ng-if="html" url="url" html="html"/>
+<div class="l-html">
+	<div class="row">
+		<map ng-if="item" class="col-md-8"/>
+	</div>
+	<div class="row">
+		<html-tool ng-if="html" url="url" html="html" item="item"/> </html-tool>
+	</div>
 </div>

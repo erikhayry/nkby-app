@@ -5,8 +5,7 @@ angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
     replace: true,
     scope: {
       html: '=',
-      url: '=',
-      item: '='
+      url: '='
     },
     templateUrl: '/modules/htmlTool/html-tool-tmplt.html',
     link: function(scope, element, attrs) {
@@ -28,8 +27,16 @@ angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
         }, 2000);
       };
       scope.encode = UrlFactory.encode;
-      return scope.addImage = function(node) {
-        return console.log(node);
+      scope.addImage = function(node) {
+        var item;
+        item = {
+          type: 'image',
+          node: node,
+          years: scope.html.years,
+          people: scope.html.people,
+          parent: scope.encode(scope.url)
+        };
+        scope.$emit('addItem', item);
       };
     }
   };

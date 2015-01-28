@@ -1,42 +1,79 @@
 'use strict'
-angular.module('ngScaffoldApp').directive 'map', ($log, UrlFactory, uiGmapGoogleMapApi) ->
+angular.module('ngScaffoldApp').directive 'map', ($log, DB) ->
         restrict: 'E'
         replace: true
         transclude: true
         templateUrl: '/modules/map/map-tmplt.html'
         link: (scope, element, attrs) ->
-
-            scope.coords  = ''
-            scope.activeMarkerId = ''
-
-            scope.item = 
-                id: '/texter/1808'
-                type: 'text'
-
+            scope.activeMarker = ''
+            scope.newPlace = {}
+            scope.selectedPeople = {}
+            scope.selectedYears = {}
+            scope.markers = []
             scope.map =
                 center:
                     latitude: 63.522180 
                     longitude: 22.530485
                 zoom: 14
+                options:
+                    scrollwheel: false
                 events: 
                     click: (map, eventName, args) ->                         
                         scope.$apply () ->
-                            scope.coords = args[0].latLng
-                            scope.activeMarkerId = ''
+                            scope.newPlace.coords = 
+                                latitude: args[0].latLng.k 
+                                longitude: args[0].latLng.C
+
+                            scope.activeMarker = {}
         
             scope.marker =
-                id: 1
-                coords:
-                    latitude: 63.522180 
-                    longitude: 22.530485
                 events: 
-                    click: (marker, eventName, args) ->                         
+                    click: (marker, eventName, args) ->  
+                        place = _.find(scope.markers, {'_id': marker.key})
                         scope.$apply () ->
-                            scope.activeMarkerId = marker.key             
+                            scope.activeMarker = 
+                                id: marker.key   
+                                name: place.name
+                                coords: place.longitude + ',' + place.latitude
 
-            scope.addNew = (itemId, coords) ->
-                #Add to DB as itemId AND add to map db
-                console.log 'Adding ' + itemId + ' to ' + coords.toString()
+                            scope.newPlace = {}
 
-            scope.updatePlace = (itemId, activeMarkerId) ->
-                console.log 'Updating ' + activeMarkerId + ' with ' + itemId    
+            DB.get 'map' 
+            .then (markers) ->
+                scope.markers = markers.data
+
+            scope.addNew = (item, newPlace) ->
+                selectedPeople = []
+                for person of scope.selectedPeople
+                  selectedPeople.push person if scope.selectedPeople[person]
+
+                selectedYears = []
+                for year of scope.selectedYears
+                  selectedYears.push year if scope.selectedYears[year]
+
+                DB.post 'items', 
+                        {
+                            parent: item.parent, 
+                            src: item.url, 
+                            type: item.type
+                            people: selectedPeople
+                            years: selectedYears
+
+                        }
+                .then (item) ->
+                    DB.post 'map', 
+                            {
+                                name: newPlace.name, 
+                                latitude: newPlace.coords.latitude 
+                                longitude: newPlace.coords.longitude
+                                items: [
+                                   item.data[0]._id 
+                                ]
+                            }
+                .then (place) ->
+                    DB.get 'map'
+                .then (markers) ->
+                    scope.markers = markers.data                    
+
+            scope.updatePlace = (itemId, activeMarker) ->
+                console.log 'Updating ' + activeMarker + ' with ' + itemId    

@@ -6,6 +6,9 @@ angular.module('ngScaffoldApp').factory 'DB', [
 		_trash = (path)->
 			$http.put 'http://localhost:3000/collections/tree/'+path, 'trashed': true
 
+		_getPlace = (latitude, longitude) ->
+			$http.get 'http://localhost:3000/collections/map/'+latitude+'/'+longitude 
+
 		_get = (collection)->
 			$http.get 'http://localhost:3000/collections/'+collection		
 
@@ -16,6 +19,7 @@ angular.module('ngScaffoldApp').factory 'DB', [
 			$http.get 'http://localhost:3000/collections/tree/'+parent			
 			 
 		trash: _trash
+		getPlace: _getPlace
 		get: _get
 		post: _post
 		getTree: _getTree

@@ -1,20 +1,25 @@
 <div class="container m-html-tool">
 	<h2>{{encode(url)}}  <span class="badge">{{html.score}}</span></h2>
-	<div ng-bind-html="html.html" class="col-md-9"></div>
-	<div class="col-md-3 l-html-tool-nav">
+	<div ng-bind-html="html.html" class="col-md-8"></div>
+	<div class="col-md-4 m-html-tool-nav">
+		<h3>Images</h3>
+		<ul class="list-group">
+			<li ng-repeat="image in html.images" class="list-group-item">
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">+</button>
+					</span>
+					<input type="text" class="form-control" ng-model="image.src.local" placeholder="Search for...">
+				</div>
+			</li>
+		</ul>						
 
 		<div ng-repeat="(type, value) in types">
 			<h3>{{type}}</h3>
-			<ul>
-				<li ng-repeat="item in value" ng-click="goTo(item.index, type)">{{item.text}}</li>
+			<ul class="list-group">
+				<li ng-repeat="item in value" ng-click="goTo(item.index, type)" class="list-group-item">{{item.text}}</li>
 			</ul>			
 		</div>
 
-		<h3>Images</h3>
-		<ul>
-			<li ng-repeat="image in html.images">
-				<button ng-click="addImage(image)">+</button> <button ng-click="goTo(image.index, 'image')">{{image.src.local}}</button> 
-			</li>
-		</ul>						
 	</div>
 </div>

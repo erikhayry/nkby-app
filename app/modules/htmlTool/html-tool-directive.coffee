@@ -5,7 +5,6 @@ angular.module('ngScaffoldApp').directive 'htmlTool', (UrlFactory) ->
         scope:
             html: '='
             url: '='
-            item: '='
 
         templateUrl: '/modules/htmlTool/html-tool-tmplt.html'
         link: (scope, element, attrs) ->
@@ -30,4 +29,15 @@ angular.module('ngScaffoldApp').directive 'htmlTool', (UrlFactory) ->
             scope.encode = UrlFactory.encode
 
             scope.addImage = (node) ->
-                console.log node
+                item =
+                    type: 'image'
+                    node: node
+                    years: scope.html.years
+                    people: scope.html.people
+                    parent: scope.encode scope.url
+
+                scope.$emit('addItem', item)
+
+                return
+
+            return
