@@ -119,6 +119,15 @@ angular.module('ngScaffoldApp').directive('map', function($log, $q, DB, MapServi
           return _updateMap();
         });
       };
+      scope.removeItemFromPlace = function(item, activeMarkerId) {
+        return DB.put('map', activeMarkerId, {
+          $pull: {
+            items: item._id
+          }
+        }).then(function() {
+          return _updateMap();
+        });
+      };
       scope.updateItemToNewPlace = function(item, newPlace) {
         return MapService.updateItem(item, scope.selectedPeople, scope.selectedYears).then(function() {
           return DB.post('map', {

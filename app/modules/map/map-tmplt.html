@@ -48,12 +48,17 @@
 
 	<div class="col-md-4" ng-if="activeMarker">
 		<h3>Active Marker</h3>
-		<ul class="list-group">				
-			<li class="list-group-item is-type-{{item.data.type}}" ng-repeat="item in activeMarker.items">
+		<ul class="list-group clearfix">				
+			<li class="list-group-item is-type-{{item.data.type}} clearfix" ng-repeat="item in activeMarker.items">
 				<img ng-src="{{item.data.src}}" alt="" ng-if="item.data.type == 'image'" width="100px">
 				<span ng-if="item.data.type !== 'image'">
 					{{item.data.name || item.data.url}} 
 				</span>
+				<span class="btn-group pull-right">
+					<button ng-click="removeItemFromPlace(item.data, activeMarker.id)" class="btn btn-default">
+						Remove
+					</button>	
+				</span>		
 			</li>
 		</ul>
 		<button ng-click="deletePlace(activeMarker)" class="btn btn-default">

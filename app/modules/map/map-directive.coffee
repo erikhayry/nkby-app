@@ -114,7 +114,15 @@ angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB, MapService, UrlF
 
                     $q.all arr
                 .then () ->
-                    _updateMap()    
+                    _updateMap()  
+
+            scope.removeItemFromPlace = (item, activeMarkerId) ->
+                DB.put 'map', activeMarkerId,
+                            { 
+                                $pull: {items: item._id}
+                            } 
+                .then () ->
+                    _updateMap()                         
 
             scope.updateItemToNewPlace = (item, newPlace) ->
                 MapService.updateItem item, scope.selectedPeople, scope.selectedYears
