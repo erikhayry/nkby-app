@@ -13,9 +13,18 @@ angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB, MapService, UrlF
     
             # helper functions
             _getItem = () ->
+                oldItemPeople = scope.item.people
+                oldItemYears = scope.item.years
                 DB.getById 'items', '54c9fe94628f8b07936ece97'
                 .then (item) -> 
-                    console.log item
+                    for year of item.data.years
+                      scope.selectedYears[item.data.years[year]] = true
+                    for people of item.data.people
+                      scope.selectedPeople[item.data.people[people]] = true
+
+                    item.data.years = _.union item.data.years, oldItemYears
+                    item.data.people = _.union item.data.people, oldItemPeople
+                    scope.item = item.data
 
 
             _updateMap = () ->
@@ -74,6 +83,19 @@ angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB, MapService, UrlF
 
 
             # scope functions
+
+            scope.addPerson = (person) ->
+                scope.selectedPeople[person] = true
+                scope.item.people.push person               
+
+            scope.updateItem = (item) ->
+                MapService.updateItem item, scope.selectedPeople, scope.selectedYears
+                .then ->
+                    scope.$emit('alert', {
+                        type: 'success'
+                        message: 'Item Updated'
+                    })
+
             scope.addNew = (item, newPlace) ->
                 MapService.addItem item, scope.selectedPeople, scope.selectedYears
                 .then (newItem) ->
@@ -84,7 +106,7 @@ angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB, MapService, UrlF
                                     name: newPlace.name, 
                                     latitude: newPlace.coords.latitude 
                                     longitude: newPlace.coords.longitude
-                                    newItems: [
+                                    items: [
                                        newItem.data[0]._id 
                                     ]
                                 })
@@ -92,9 +114,24 @@ angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB, MapService, UrlF
 
                     $q.all arr
                 .then () ->
-                    _updateMap()
-                ,(e) ->
-                    _updateMap()                 
+                    _updateMap()    
+
+            scope.updateItemToNewPlace = (item, newPlace) ->
+                MapService.updateItem item, scope.selectedPeople, scope.selectedYears
+                .then () ->
+                    DB.post('map', 
+                            {
+                                name: newPlace.name, 
+                                latitude: newPlace.coords.latitude 
+                                longitude: newPlace.coords.longitude
+                                items: [
+                                   item._id 
+                                ]
+                            })
+                .then () ->
+                    _updateMap()  
+                , (e) ->
+                    console.log e                 
 
             scope.updatePlace = (item, activeMarkerId) ->
                 MapService.addItem item, scope.selectedPeople, scope.selectedYears
@@ -103,11 +140,27 @@ angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB, MapService, UrlF
                             { 
                                 $addToSet: {items: item.data[0]._id}
                             } 
-                .then (place) ->
-                    _updateMap() 
+                .then () ->
+                    _updateMap()
+
+            scope.updateItemToMarker = (item, activeMarkerId) ->
+                MapService.updateItem item, scope.selectedPeople, scope.selectedYears
+                .then () ->
+                    DB.put 'map', activeMarkerId,
+                            { 
+                                $addToSet: {items: item._id}
+                            } 
+                .then () ->
+                    _updateMap()
+
 
             scope.cancel = () ->
                 scope.$emit('addItem', '')
+
+            scope.deletePlace = (marker) ->
+                DB.delete 'map', marker.id
+                .then () ->
+                   _updateMap()                    
 
             # init
             _updateMap()

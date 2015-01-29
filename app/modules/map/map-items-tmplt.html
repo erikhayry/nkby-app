@@ -5,10 +5,10 @@
 	<ul class="list-group m-map-items">
 		<li class="list-group-item">
 			<div class="input-group input-group-sm">
-				<span class="input-group-addon">
-					<input type="checkbox" ng-model="selectedPeople[newPerson]">
-				</span>
 				<input type="text" class="form-control" ng-model="newPerson"/>
+				<span class="input-group-btn">
+					<button class="btn btn-default" ng-click="addPerson(newPerson, item); newPerson = ''" type="button">+</button>
+				</span>					
 			</div>
 		</li>				
 		<li class="list-group-item" ng-repeat="person in item.people">
@@ -25,10 +25,10 @@
 	<ul class="list-group m-map-items">
 		<li class="list-group-item">
 			<div class="input-group input-group-sm">
-				<span class="input-group-addon">
-					<input type="checkbox" ng-model="selectedYears[newYear]">
-				</span>
 				<input type="text" class="form-control" ng-model="newYear"/>
+				<span class="input-group-btn">
+					<button class="btn btn-default" ng-click="addYear(newYear)" type="button">+</button>
+				</span>				
 			</div>
 		</li>			
 		<li class="list-group-item" ng-repeat="year in item.years">

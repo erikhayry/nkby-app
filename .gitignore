@@ -1,7 +1,5 @@
 node_modules
 .DS_Store
 data/www
-app/**/*.js
-app/**/*.map
 app/bower_components
 bower_components

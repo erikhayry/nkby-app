@@ -35,7 +35,7 @@ angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootS
       insertNode = function() {
         return DB.getTree(UrlFactory.decode(scope.child._id)).then(function(tree) {
           scope.children = tree;
-          return $compile('<node \n nodes="children" \n addtotrash="addtotrash" \n openfile="openfile" \n closefile="closefile" \n openfolders="openfolders" \n openitem="openitem" \n toggledone="toggledone" >  \n </node>')(scope, function(cloned, scope) {
+          return $compile('<node nodes="children" addtotrash="addtotrash" openfile="openfile" closefile="closefile" openfolders="openfolders" openitem="openitem" toggledone="toggledone" > </node>')(scope, function(cloned, scope) {
             return element.append(cloned);
           });
         });

@@ -1,6 +1,6 @@
 angular.module('ngScaffoldApp').factory('DB', [
   '$http', function($http) {
-    var _get, _getById, _getPlace, _getTree, _post, _put, _updateNode;
+    var _delete, _get, _getById, _getPlace, _getTree, _post, _put, _updateNode;
     _updateNode = function(path, val) {
       return $http.put('http://localhost:3000/collections/tree/' + path, val);
     };
@@ -22,6 +22,9 @@ angular.module('ngScaffoldApp').factory('DB', [
     _getTree = function(parent) {
       return $http.get('http://localhost:3000/collections/tree/' + parent);
     };
+    _delete = function(collection, id) {
+      return $http["delete"]('http://localhost:3000/collections/' + collection + '/' + id);
+    };
     return {
       updateNode: _updateNode,
       getPlace: _getPlace,
@@ -29,7 +32,8 @@ angular.module('ngScaffoldApp').factory('DB', [
       getById: _getById,
       post: _post,
       put: _put,
-      getTree: _getTree
+      getTree: _getTree,
+      "delete": _delete
     };
   }
 ]);

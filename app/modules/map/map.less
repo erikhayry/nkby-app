@@ -1,9 +1,19 @@
 .m-map {
-  background-color: white;
+  .glyphicon-map-marker, .glyphicon-ok {
+    display: none;
+  }
+
 
   &-items {
     height: 200px;
     overflow: auto;
+  }
+
+  .has-item-true {
+    color: green;
+    .glyphicon-map-marker, {
+      display: inline;
+    }
   }
 }
 

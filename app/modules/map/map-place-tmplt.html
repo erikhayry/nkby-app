@@ -27,12 +27,31 @@
 
 	<br/>
 
-	<button ng-click="addNew(item, newPlace)" ng-if="newPlace.coords && !activeMarker" class="btn btn-default">
-		Add
-	</button>
-	<button ng-click="updatePlace(item, activeMarker.id)" ng-if="activeMarker" class="btn btn-default">
-		Add to {{activeMarker.name}}
-	</button>
+	<div ng-if="item._id">
+		<button ng-click="updateItemToNewPlace(item, newPlace)" ng-if="newPlace.coords && !activeMarker" class="btn btn-default">
+			Update to new place
+		</button>
+
+		<button ng-click="updateItemToMarker(item, activeMarker.id)" ng-if="activeMarker" class="btn btn-default">
+			Update to marker
+		</button>
+	</div>
+
+	<div ng-if="!item._id">
+		<button ng-click="addNew(item, newPlace)" ng-if="newPlace.coords && !activeMarker" class="btn btn-default">
+			Add
+		</button>
+		<button ng-click="updatePlace(item, activeMarker.id)" ng-if="activeMarker" class="btn btn-default">
+			Add to {{activeMarker.name}}
+		</button>		
+	</div>
+	
+	<br/>
+
+	<button ng-click="updateItem(item)" class="btn btn-default">
+		Update item
+	</button>	
+
 	<button ng-click="cancel()" class="btn btn-default">
 		Cancel
 	</button>	

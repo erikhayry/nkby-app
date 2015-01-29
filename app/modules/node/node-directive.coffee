@@ -34,15 +34,15 @@ angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, Ur
           DB.getTree(UrlFactory.decode scope.child._id)
             .then (tree) ->
               scope.children = tree
-              $compile('<node \n
-                          nodes="children" \n
-                          addtotrash="addtotrash" \n
-                          openfile="openfile" \n
-                          closefile="closefile" \n 
-                          openfolders="openfolders" \n
-                          openitem="openitem" \n
+              $compile('<node 
+                          nodes="children"
+                          addtotrash="addtotrash"
+                          openfile="openfile"
+                          closefile="closefile" 
+                          openfolders="openfolders"
+                          openitem="openitem"
                           toggledone="toggledone"
-                        >  \n
+                        >  
                         </node>') scope, (cloned, scope) ->
                                       element.append cloned
 

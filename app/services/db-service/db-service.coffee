@@ -21,7 +21,10 @@ angular.module('ngScaffoldApp').factory 'DB', [
 			$http.put 'http://localhost:3000/collections/'+collection+'/'+id, data
 
 		_getTree = (parent)->
-			$http.get 'http://localhost:3000/collections/tree/'+parent			
+			$http.get 'http://localhost:3000/collections/tree/'+parent		
+
+		_delete = (collection, id)->
+			$http.delete 'http://localhost:3000/collections/'+collection+'/'+id					
 			 
 		updateNode: _updateNode
 		getPlace: _getPlace
@@ -30,4 +33,5 @@ angular.module('ngScaffoldApp').factory 'DB', [
 		post: _post
 		put: _put
 		getTree: _getTree
+		delete: _delete
 ]

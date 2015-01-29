@@ -13,8 +13,20 @@ angular.module('ngScaffoldApp').directive('map', function($log, $q, DB, MapServi
       scope.selectedYears = {};
       scope.markers = [];
       _getItem = function() {
+        var oldItemPeople, oldItemYears;
+        oldItemPeople = scope.item.people;
+        oldItemYears = scope.item.years;
         return DB.getById('items', '54c9fe94628f8b07936ece97').then(function(item) {
-          return console.log(item);
+          var people, year;
+          for (year in item.data.years) {
+            scope.selectedYears[item.data.years[year]] = true;
+          }
+          for (people in item.data.people) {
+            scope.selectedPeople[item.data.people[people]] = true;
+          }
+          item.data.years = _.union(item.data.years, oldItemYears);
+          item.data.people = _.union(item.data.people, oldItemPeople);
+          return scope.item = item.data;
         });
       };
       _updateMap = function() {
@@ -77,6 +89,18 @@ angular.module('ngScaffoldApp').directive('map', function($log, $q, DB, MapServi
           click: _setNewMarker
         }
       };
+      scope.addPerson = function(person) {
+        scope.selectedPeople[person] = true;
+        return scope.item.people.push(person);
+      };
+      scope.updateItem = function(item) {
+        return MapService.updateItem(item, scope.selectedPeople, scope.selectedYears).then(function() {
+          return scope.$emit('alert', {
+            type: 'success',
+            message: 'Item Updated'
+          });
+        });
+      };
       scope.addNew = function(item, newPlace) {
         return MapService.addItem(item, scope.selectedPeople, scope.selectedYears).then(function(newItem) {
           var arr;
@@ -87,14 +111,26 @@ angular.module('ngScaffoldApp').directive('map', function($log, $q, DB, MapServi
               name: newPlace.name,
               latitude: newPlace.coords.latitude,
               longitude: newPlace.coords.longitude,
-              newItems: [newItem.data[0]._id]
+              items: [newItem.data[0]._id]
             })
           ];
           return $q.all(arr);
         }).then(function() {
           return _updateMap();
-        }, function(e) {
+        });
+      };
+      scope.updateItemToNewPlace = function(item, newPlace) {
+        return MapService.updateItem(item, scope.selectedPeople, scope.selectedYears).then(function() {
+          return DB.post('map', {
+            name: newPlace.name,
+            latitude: newPlace.coords.latitude,
+            longitude: newPlace.coords.longitude,
+            items: [item._id]
+          });
+        }).then(function() {
           return _updateMap();
+        }, function(e) {
+          return console.log(e);
         });
       };
       scope.updatePlace = function(item, activeMarkerId) {
@@ -104,12 +140,28 @@ angular.module('ngScaffoldApp').directive('map', function($log, $q, DB, MapServi
               items: item.data[0]._id
             }
           });
-        }).then(function(place) {
+        }).then(function() {
+          return _updateMap();
+        });
+      };
+      scope.updateItemToMarker = function(item, activeMarkerId) {
+        return MapService.updateItem(item, scope.selectedPeople, scope.selectedYears).then(function() {
+          return DB.put('map', activeMarkerId, {
+            $addToSet: {
+              items: item._id
+            }
+          });
+        }).then(function() {
           return _updateMap();
         });
       };
       scope.cancel = function() {
         return scope.$emit('addItem', '');
+      };
+      scope.deletePlace = function(marker) {
+        return DB["delete"]('map', marker.id).then(function() {
+          return _updateMap();
+        });
       };
       _updateMap();
       return _getItem();
