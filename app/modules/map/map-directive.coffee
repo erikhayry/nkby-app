@@ -88,6 +88,10 @@ angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB, MapService, UrlF
                 scope.selectedPeople[person] = true
                 scope.item.people.push person               
 
+            scope.addYear = (year) ->
+                scope.selectedYears[year] = true
+                scope.item.years.push year 
+
             scope.updateItem = (item) ->
                 MapService.updateItem item, scope.selectedPeople, scope.selectedYears
                 .then ->

@@ -93,6 +93,10 @@ angular.module('ngScaffoldApp').directive('map', function($log, $q, DB, MapServi
         scope.selectedPeople[person] = true;
         return scope.item.people.push(person);
       };
+      scope.addYear = function(year) {
+        scope.selectedYears[year] = true;
+        return scope.item.years.push(year);
+      };
       scope.updateItem = function(item) {
         return MapService.updateItem(item, scope.selectedPeople, scope.selectedYears).then(function() {
           return scope.$emit('alert', {
