@@ -11,7 +11,7 @@
 				</span>					
 			</div>
 		</li>				
-		<li class="list-group-item" ng-repeat="person in item.people">
+		<li class="list-group-item" ng-repeat="person in item.people | reverse">
 			<div class="input-group input-group-sm">
 				<span class="input-group-addon">
 					<input type="checkbox" ng-model="selectedPeople[person]">
@@ -31,7 +31,7 @@
 				</span>				
 			</div>
 		</li>			
-		<li class="list-group-item" ng-repeat="year in item.years">
+		<li class="list-group-item" ng-repeat="year in item.years | reverse">
 			<div class="input-group input-group-sm">
 				<span class="input-group-addon">
 					<input type="checkbox" ng-model="selectedYears[year]">

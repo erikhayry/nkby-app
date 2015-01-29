@@ -26,6 +26,10 @@ angular.module('ngScaffoldApp', ['ngAnimate', 'ngAria', 'ngCookies', 'ngMessages
     v: "3.17",
     libraries: "weather,geometry,visualization"
   });
+}).filter("reverse", function() {
+  return function(items) {
+    return items.slice().reverse();
+  };
 });
 
 //# sourceMappingURL=app.js.map

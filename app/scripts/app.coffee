@@ -43,3 +43,7 @@ angular.module('ngScaffoldApp', [
         libraries: "weather,geometry,visualization"
 
     return
+# filters
+.filter "reverse", ->
+  (items) ->
+    items.slice().reverse()
