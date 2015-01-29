@@ -4,17 +4,20 @@ angular.module('ngScaffoldApp').controller 'TreeCtrl', [
 	'$scope'
 	'$sce'
 	'$stateParams'
-	'DataFactory'
 	'DB'
-	'FilterFactory'
 	'UrlFactory'
-	($scope, $sce, $stateParams, DataFactory, DB, FilterFactory, UrlFactory) ->
+	($scope, $sce, $stateParams, DB, UrlFactory) ->
 		$scope.openfolders = []
 
-		getTree = () ->
+		_getTree = () ->
 			DB.getTree(UrlFactory.decode $stateParams.path)
 			.then (tree) ->
 				$scope.node = tree
+
+		$scope.openitem = (id) ->
+			DB.getById 'items', id
+			.then (item) -> 
+				console.log item		
 
 		$scope.openfile = (url) ->
 			$scope.htmlurl = '#/html/' + $sce.trustAsResourceUrl UrlFactory.decode url
@@ -22,12 +25,19 @@ angular.module('ngScaffoldApp').controller 'TreeCtrl', [
 		$scope.closefile = () ->
 			$scope.htmlurl = ''   
 
-		$scope.addtotrash = (path) ->
-        	DB.trash UrlFactory.decode path
+		$scope.toggledone = (path, bool) ->
+        	DB.updateNode UrlFactory.decode(path), 'done': bool 
         	.then (json) ->
-        		getTree()
+        		_getTree()
         	,(e) ->
-        		getTree()
+        		_getTree()
 
-        getTree()					
+		$scope.addtotrash = (path) ->
+        	DB.updateNode UrlFactory.decode(path), 'trashed': true 
+        	.then (json) ->
+        		_getTree()
+        	,(e) ->
+        		_getTree()
+
+        _getTree()					
 ]

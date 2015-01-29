@@ -1,5 +1,5 @@
 'use strict'
-angular.module('ngScaffoldApp').directive 'htmlTool', (UrlFactory) ->
+angular.module('ngScaffoldApp').directive 'htmlTool', (UrlFactory, Utils) ->
         restrict: 'E'
         replace: true
         scope:
@@ -10,12 +10,6 @@ angular.module('ngScaffoldApp').directive 'htmlTool', (UrlFactory) ->
         templateUrl: '/modules/htmlTool/html-tool-tmplt.html'
         link: (scope, element, attrs) ->
             
-            toArr = (obj) ->
-                arr = []
-                for o of obj
-                  arr.push obj[o].text
-                _.uniq(arr);
-
             scope.types = 
                 'people': scope.html.people
                 'years': scope.html.years
@@ -39,8 +33,8 @@ angular.module('ngScaffoldApp').directive 'htmlTool', (UrlFactory) ->
                 item =
                     type: 'text'
                     url: url
-                    years: toArr scope.html.years
-                    people: toArr scope.html.people
+                    years: Utils.flattenObj scope.html.years
+                    people: Utils.flattenObj scope.html.people
                     parent: scope.encode scope.url                    
 
                 scope.$emit('addItem', item)
@@ -49,8 +43,8 @@ angular.module('ngScaffoldApp').directive 'htmlTool', (UrlFactory) ->
                 item =
                     type: 'image'
                     node: node
-                    years: toArr scope.html.years
-                    people: toArr scope.html.people
+                    years: Utils.flattenObj scope.html.years
+                    people: Utils.flattenObj scope.html.people
                     parent: scope.encode scope.url
 
                 scope.$emit('addItem', item)

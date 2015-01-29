@@ -9,12 +9,12 @@ angular.module('ngScaffoldApp').directive 'node', ->
       openfile: '='
       closefile: '='
       openfolders: '='
+      openitem: '='
+      toggledone: '='
 
     templateUrl: '/modules/node/node-tmplt.html'
-    link: (scope, element, attrs) ->
-      #console.log scope
 
-angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, UrlFactory, DB) ->
+angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, UrlFactory, DB, Utils) ->
     restrict: 'E'
     replace: true
     scope:
@@ -23,8 +23,9 @@ angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, Ur
       openfile: '='
       closefile: '='
       openfolders: '='
+      openitem: '='
+      toggledone: '='
 
-    controller: 'NodeCtrl'
     templateUrl: '/modules/node/node-child-tmplt.html'
     link: (scope, element, attrs) ->
 
@@ -33,33 +34,40 @@ angular.module('ngScaffoldApp').directive 'nodeChild', ($compile, $rootScope, Ur
           DB.getTree(UrlFactory.decode scope.child._id)
             .then (tree) ->
               scope.children = tree
-              $compile('<node nodes="children" addtotrash="addtotrash" openfile="openfile" closefile="closefile" openfolders="openfolders"></node>') scope, (cloned, scope) ->
-                element.append cloned
+              $compile('<node \n
+                          nodes="children" \n
+                          addtotrash="addtotrash" \n
+                          openfile="openfile" \n
+                          closefile="closefile" \n 
+                          openfolders="openfolders" \n
+                          openitem="openitem" \n
+                          toggledone="toggledone"
+                        >  \n
+                        </node>') scope, (cloned, scope) ->
+                                      element.append cloned
 
 
       scope.decode = UrlFactory.decode
-
-      scope.isFolder = (node) ->
-        return node.base.indexOf('.') < 0
+      scope.isFolder = Utils.isFolder
 
       toggleFolder = scope.toggleFolder = () ->
           ulEl = element.find('ul')
 
           if ulEl.length > 0
-            if ulEl.hasClass( "hidden" ) and scope.openfolders.indexOf(scope.child._id) < 0
-              scope.openfolders.push(scope.child._id) 
+            if ulEl.hasClass( "hidden" ) and !Utils.arrHas scope.openfolders, scope.child._id
+              Utils.addToArr scope.openfolders, scope.child._id
             else
-              scope.openfolders.splice(scope.openfolders.indexOf(scope.child._id),1)
+              Utils.removeFromArr scope.openfolders, scope.child._id
 
             ulEl.toggleClass('hidden') 
 
           else
-            scope.openfolders.push(scope.child._id) if scope.openfolders.indexOf(scope.child._id) < 0
+            Utils.addToArr scope.openfolders, scope.child._id if !Utils.arrHas scope.openfolders, scope.child._id
             insertNode()
 
           return
 
-      toggleFolder() if scope.openfolders.indexOf(scope.child._id) > -1
+      toggleFolder() if Utils.arrHas scope.openfolders, scope.child._id
 
       return
     

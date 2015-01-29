@@ -1,11 +1,16 @@
 'use strict';
 angular.module('ngScaffoldApp').controller('TreeCtrl', [
-  '$scope', '$sce', '$stateParams', 'DataFactory', 'DB', 'FilterFactory', 'UrlFactory', function($scope, $sce, $stateParams, DataFactory, DB, FilterFactory, UrlFactory) {
-    var getTree;
+  '$scope', '$sce', '$stateParams', 'DB', 'UrlFactory', function($scope, $sce, $stateParams, DB, UrlFactory) {
+    var _getTree;
     $scope.openfolders = [];
-    getTree = function() {
+    _getTree = function() {
       return DB.getTree(UrlFactory.decode($stateParams.path)).then(function(tree) {
         return $scope.node = tree;
+      });
+    };
+    $scope.openitem = function(id) {
+      return DB.getById('items', id).then(function(item) {
+        return console.log(item);
       });
     };
     $scope.openfile = function(url) {
@@ -14,14 +19,25 @@ angular.module('ngScaffoldApp').controller('TreeCtrl', [
     $scope.closefile = function() {
       return $scope.htmlurl = '';
     };
-    $scope.addtotrash = function(path) {
-      return DB.trash(UrlFactory.decode(path)).then(function(json) {
-        return getTree();
+    $scope.toggledone = function(path, bool) {
+      return DB.updateNode(UrlFactory.decode(path), {
+        'done': bool
+      }).then(function(json) {
+        return _getTree();
       }, function(e) {
-        return getTree();
+        return _getTree();
       });
     };
-    return getTree();
+    $scope.addtotrash = function(path) {
+      return DB.updateNode(UrlFactory.decode(path), {
+        'trashed': true
+      }).then(function(json) {
+        return _getTree();
+      }, function(e) {
+        return _getTree();
+      });
+    };
+    return _getTree();
   }
 ]);
 

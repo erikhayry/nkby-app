@@ -8,14 +8,15 @@ angular.module('ngScaffoldApp').directive('node', function() {
       addtotrash: '=',
       openfile: '=',
       closefile: '=',
-      openfolders: '='
+      openfolders: '=',
+      openitem: '=',
+      toggledone: '='
     },
-    templateUrl: '/modules/node/node-tmplt.html',
-    link: function(scope, element, attrs) {}
+    templateUrl: '/modules/node/node-tmplt.html'
   };
 });
 
-angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootScope, UrlFactory, DB) {
+angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootScope, UrlFactory, DB, Utils) {
   return {
     restrict: 'E',
     replace: true,
@@ -24,42 +25,41 @@ angular.module('ngScaffoldApp').directive('nodeChild', function($compile, $rootS
       addtotrash: '=',
       openfile: '=',
       closefile: '=',
-      openfolders: '='
+      openfolders: '=',
+      openitem: '=',
+      toggledone: '='
     },
-    controller: 'NodeCtrl',
     templateUrl: '/modules/node/node-child-tmplt.html',
     link: function(scope, element, attrs) {
       var insertNode, toggleFolder;
       insertNode = function() {
         return DB.getTree(UrlFactory.decode(scope.child._id)).then(function(tree) {
           scope.children = tree;
-          return $compile('<node nodes="children" addtotrash="addtotrash" openfile="openfile" closefile="closefile" openfolders="openfolders"></node>')(scope, function(cloned, scope) {
+          return $compile('<node \n nodes="children" \n addtotrash="addtotrash" \n openfile="openfile" \n closefile="closefile" \n openfolders="openfolders" \n openitem="openitem" \n toggledone="toggledone" >  \n </node>')(scope, function(cloned, scope) {
             return element.append(cloned);
           });
         });
       };
       scope.decode = UrlFactory.decode;
-      scope.isFolder = function(node) {
-        return node.base.indexOf('.') < 0;
-      };
+      scope.isFolder = Utils.isFolder;
       toggleFolder = scope.toggleFolder = function() {
         var ulEl;
         ulEl = element.find('ul');
         if (ulEl.length > 0) {
-          if (ulEl.hasClass("hidden") && scope.openfolders.indexOf(scope.child._id) < 0) {
-            scope.openfolders.push(scope.child._id);
+          if (ulEl.hasClass("hidden") && !Utils.arrHas(scope.openfolders, scope.child._id)) {
+            Utils.addToArr(scope.openfolders, scope.child._id);
           } else {
-            scope.openfolders.splice(scope.openfolders.indexOf(scope.child._id), 1);
+            Utils.removeFromArr(scope.openfolders, scope.child._id);
           }
           ulEl.toggleClass('hidden');
         } else {
-          if (scope.openfolders.indexOf(scope.child._id) < 0) {
-            scope.openfolders.push(scope.child._id);
+          if (!Utils.arrHas(scope.openfolders, scope.child._id)) {
+            Utils.addToArr(scope.openfolders, scope.child._id);
           }
           insertNode();
         }
       };
-      if (scope.openfolders.indexOf(scope.child._id) > -1) {
+      if (Utils.arrHas(scope.openfolders, scope.child._id)) {
         toggleFolder();
       }
     }

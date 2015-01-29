@@ -1,5 +1,5 @@
 'use strict';
-angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
+angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory, Utils) {
   return {
     restrict: 'E',
     replace: true,
@@ -10,15 +10,6 @@ angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
     },
     templateUrl: '/modules/htmlTool/html-tool-tmplt.html',
     link: function(scope, element, attrs) {
-      var toArr;
-      toArr = function(obj) {
-        var arr, o;
-        arr = [];
-        for (o in obj) {
-          arr.push(obj[o].text);
-        }
-        return _.uniq(arr);
-      };
       scope.types = {
         'people': scope.html.people,
         'years': scope.html.years,
@@ -42,8 +33,8 @@ angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
         item = {
           type: 'text',
           url: url,
-          years: toArr(scope.html.years),
-          people: toArr(scope.html.people),
+          years: Utils.flattenObj(scope.html.years),
+          people: Utils.flattenObj(scope.html.people),
           parent: scope.encode(scope.url)
         };
         return scope.$emit('addItem', item);
@@ -53,8 +44,8 @@ angular.module('ngScaffoldApp').directive('htmlTool', function(UrlFactory) {
         item = {
           type: 'image',
           node: node,
-          years: toArr(scope.html.years),
-          people: toArr(scope.html.people),
+          years: Utils.flattenObj(scope.html.years),
+          people: Utils.flattenObj(scope.html.people),
           parent: scope.encode(scope.url)
         };
         scope.$emit('addItem', item);

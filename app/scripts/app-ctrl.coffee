@@ -5,8 +5,11 @@ angular.module('ngScaffoldApp').controller 'AppCtrl', [
 	'$timeout'
 	($scope, $timeout) ->
 		$scope.$on 'alert', (event, data) ->
+			$timeout.cancel timer
+			
 			$scope.alert = data
-			$timeout (->
+
+			timer = $timeout (->
 			  $scope.alert = {}
 			  return
 			), 2000
