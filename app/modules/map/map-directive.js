@@ -6,29 +6,12 @@ angular.module('ngScaffoldApp').directive('map', function($log, $q, DB, MapServi
     transclude: true,
     templateUrl: '/modules/map/map-tmplt.html',
     link: function(scope, element, attrs) {
-      var _getItem, _getPlaceItems, _setNewMarker, _updateMap;
+      var _getPlaceItems, _setNewMarker, _updateMap;
       scope.activeMarker = '';
       scope.newPlace = {};
       scope.selectedPeople = {};
       scope.selectedYears = {};
       scope.markers = [];
-      _getItem = function() {
-        var oldItemPeople, oldItemYears;
-        oldItemPeople = scope.item.people;
-        oldItemYears = scope.item.years;
-        return DB.getById('items', '54c9fe94628f8b07936ece97').then(function(item) {
-          var people, year;
-          for (year in item.data.years) {
-            scope.selectedYears[item.data.years[year]] = true;
-          }
-          for (people in item.data.people) {
-            scope.selectedPeople[item.data.people[people]] = true;
-          }
-          item.data.years = _.union(item.data.years, oldItemYears);
-          item.data.people = _.union(item.data.people, oldItemPeople);
-          return scope.item = item.data;
-        });
-      };
       _updateMap = function() {
         return DB.get('map').then(function(markers) {
           scope.newPlace = '';
@@ -109,7 +92,7 @@ angular.module('ngScaffoldApp').directive('map', function($log, $q, DB, MapServi
         return MapService.addItem(item, scope.selectedPeople, scope.selectedYears).then(function(newItem) {
           var arr;
           arr = [
-            DB.updateNode(UrlFactory.decode('/apple-touch-icon.png'), {
+            DB.updateNode(UrlFactory.decode(newItem.data[0].parent), {
               'itemId': newItem.data[0]._id
             }), DB.post('map', {
               name: newPlace.name,
@@ -120,6 +103,9 @@ angular.module('ngScaffoldApp').directive('map', function($log, $q, DB, MapServi
           ];
           return $q.all(arr);
         }).then(function() {
+          return _updateMap();
+        }, function(e) {
+          console.log(e);
           return _updateMap();
         });
       };
@@ -176,8 +162,7 @@ angular.module('ngScaffoldApp').directive('map', function($log, $q, DB, MapServi
           return _updateMap();
         });
       };
-      _updateMap();
-      return _getItem();
+      return _updateMap();
     }
   };
 });

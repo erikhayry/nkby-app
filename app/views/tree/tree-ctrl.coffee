@@ -14,6 +14,15 @@ angular.module('ngScaffoldApp').controller 'TreeCtrl', [
 			.then (tree) ->
 				$scope.node = tree
 
+
+		$scope.buildJSON = ->
+			DB.buildJSON()
+			.then (data) ->
+				$scope.$emit('alert', {
+					type: 'success'
+					message: 'JSON created at ' + data.data
+				})				
+
 		$scope.openitem = (id) ->
 			DB.getById 'items', id
 			.then (item) -> 

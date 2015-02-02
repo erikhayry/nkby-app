@@ -8,6 +8,14 @@ angular.module('ngScaffoldApp').controller('TreeCtrl', [
         return $scope.node = tree;
       });
     };
+    $scope.buildJSON = function() {
+      return DB.buildJSON().then(function(data) {
+        return $scope.$emit('alert', {
+          type: 'success',
+          message: 'JSON created at ' + data.data
+        });
+      });
+    };
     $scope.openitem = function(id) {
       return DB.getById('items', id).then(function(item) {
         return console.log(item);

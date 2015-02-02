@@ -3,6 +3,15 @@
 		<button button type="button" class="btn btn-default" ng-click="closefile()">x</button>
 		<iframe src="{{htmlurl}}" frameborder="0" class="l-tree-iframe"></iframe>		
 	</div>
+
+	<br>
+
+	<div class="btn-group clearfix" role="group">
+	  <button type="button" class="btn btn-default" ng-click="buildJSON()">Build JSON</button>
+	</div>
+
+	<br>
+
 	<node 
 		ng-if="!htmlurl"
 		nodes="node" 

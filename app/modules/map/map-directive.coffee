@@ -11,22 +11,6 @@ angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB, MapService, UrlF
             scope.selectedYears = {}
             scope.markers = []
     
-            # helper functions
-            _getItem = () ->
-                oldItemPeople = scope.item.people
-                oldItemYears = scope.item.years
-                DB.getById 'items', '54c9fe94628f8b07936ece97'
-                .then (item) -> 
-                    for year of item.data.years
-                      scope.selectedYears[item.data.years[year]] = true
-                    for people of item.data.people
-                      scope.selectedPeople[item.data.people[people]] = true
-
-                    item.data.years = _.union item.data.years, oldItemYears
-                    item.data.people = _.union item.data.people, oldItemPeople
-                    scope.item = item.data
-
-
             _updateMap = () ->
                 DB.get 'map'
                 .then (markers) ->
@@ -104,7 +88,7 @@ angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB, MapService, UrlF
                 MapService.addItem item, scope.selectedPeople, scope.selectedYears
                 .then (newItem) ->
                     arr = [
-                        DB.updateNode(UrlFactory.decode('/apple-touch-icon.png'), 'itemId': newItem.data[0]._id),                        
+                        DB.updateNode(UrlFactory.decode(newItem.data[0].parent), 'itemId': newItem.data[0]._id),                        
                         DB.post('map', 
                                 {
                                     name: newPlace.name, 
@@ -118,7 +102,10 @@ angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB, MapService, UrlF
 
                     $q.all arr
                 .then () ->
-                    _updateMap()  
+                    _updateMap()
+                , (e) ->
+                    console.log e         
+                    _updateMap()           
 
             scope.removeItemFromPlace = (item, activeMarkerId) ->
                 DB.put 'map', activeMarkerId,
@@ -176,7 +163,6 @@ angular.module('ngScaffoldApp').directive 'map', ($log, $q, DB, MapService, UrlF
 
             # init
             _updateMap()
-            _getItem()
 
 angular.module('ngScaffoldApp').directive 'mapItem', ($log, $q, DB) ->
         restrict: 'E'

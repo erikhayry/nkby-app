@@ -1,6 +1,9 @@
 angular.module('ngScaffoldApp').factory('DataFactory', [
   '$http', function($http) {
-    var _getHTML, _getJSON;
+    var _buildJSON, _getHTML, _getJSON;
+    _buildJSON = function(data) {
+      return $http.post('http://localhost:3000/static/json/', data);
+    };
     _getJSON = function(path) {
       return $http.get('http://localhost:3000/static/json/' + path);
     };
@@ -9,6 +12,7 @@ angular.module('ngScaffoldApp').factory('DataFactory', [
     };
     return {
       getJSON: _getJSON,
+      buildJSON: _buildJSON,
       getHTML: _getHTML
     };
   }
